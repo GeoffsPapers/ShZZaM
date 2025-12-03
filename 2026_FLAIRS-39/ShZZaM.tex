@@ -1,0 +1,175 @@
+%File: formatting-instruction.tex
+\documentclass[letterpaper]{article}
+\usepackage{flairs}
+\usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{setspace}
+\frenchspacing
+\usepackage{verbatim}
+
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11in}
+
+\newcommand{\mytilde}{\raisebox{0.4ex}{\texttildelow}}
+%----Making things more compact
+\newcommand{\smalltt}[1]{{\small \tt #1}}
+\newenvironment{packed_itemize}{
+\vspace*{-0.2em}
+\begin{itemize}
+\setlength{\partopsep}{0pt}
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+}{\end{itemize}}
+\newenvironment{packed_enumerate}{
+\vspace*{-0.2em}
+\begin{enumerate}
+\setlength{\partopsep}{0pt}
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+}{\end{enumerate}}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\floatpagefraction}{0.66}
+\setlength{\floatsep}{2.0pt plus 2.0pt minus 2.0pt}
+\setlength{\textfloatsep}{10.0pt plus 2.0pt minus 0.0pt}
+
+% \pdfinfo{
+% /Title (ShZZaM: An LLM+ATP-based Natural Language to Logic Translator)
+% /Author (Geoff Sutcliffe, Danial Haroon)}
+% \setcounter{secnumdepth}{2}  
+% \begin{document}
+% \title{ShZZaM: An LLM+ATP-based Natural Language to Logic Translator}
+% \author{Geoff Sutcliffe, Danial Haroon\\
+% University of Miami\\
+% Coral Gables\\
+% USA\\
+% }
+\pdfinfo{
+/Title (ShZZaM: An LLM+ATP-based Natural Language to Logic Translator)
+/Author (First1 Last1, First2 Last2)}
+\setcounter{secnumdepth}{2}  
+\begin{document}
+\title{ShZZaM: An LLM+ATP-based Natural Language to Logic Translator}
+\author{First1 Last1, First2 Last2\\
+Affiliation1\\
+City1\\
+Country1\\
+}
+\maketitle
+\begin{abstract}
+\begin{quote}
+This paper describes the ShZZaM tool that uses Large Language Models (LLMs) and Automated
+Theorem Proving (ATP) tools to translate natural language to typed first-order logic in
+the TFF syntax of the TPTP World.
+MORE
+\end{quote}
+\end{abstract}
+%--------------------------------------------------------------------------------------------------
+\section{Introduction}
+\label{Introduction}
+
+Large Language Models (LLMs)~\cite{PR+25} have shown themselves to be useful in a broad range
+of applications~\cite{MK+25}.
+However, it is well known that LLMs make mistakes~\cite{HY+25}, and this is acknowledged on 
+LLMs' web interfaces, e.g., ChatGPT admits "ChatGPT can make mistakes. Check important info".
+In the face of such unreliability, the results from LLMs in mission-critical applications require
+verification.
+One approach is to translate the LLM input and output to a logical form that can be checked
+using Automated Theorem Proving (ATP) tools, e.g.,~\cite{YS+25,CL+25}.\footnote{%
+For a more comprehensive survey, just ask your favourite LLM to ``show some research on how LLMs 
+make mistakes, and the need for symbolic checking of LLM output''.}
+A key step in this verification pipeline is the faithful translation of the natural language to
+an appropriate logical form.
+This task is difficult due to the ambiguous nature of natural language statements, especially
+informally expressed statements.
+Work in this area includes LINC~\cite{OG+23}, FOLIO~\cite{HS+24}, and LINA~\cite{LL+24-arXiv}.
+This paper makes another contribution in this area, taking a new interactive approach to the
+translation process, zigzagging (hence the 'ZZ' in the tool name) between natural language and 
+logic until convergence is achieved.
+
+Automated Theorem Proving (ATP) deals with the task of proving theorems from axioms – the
+derivation of conclusions that follow inevitably from known facts~\cite{RV01-HAR}.
+The converse task of disproving conjectures is another facet of interest~\cite{CS03,BN10-ITP}.
+The axioms and conjectures are written in an appropriately expressive logic, and the solutions
+(proofs and models) are often similarly written in logic~\cite{Sut23-IGPL}.
+The TPTP World~\cite{Sut17} is the well established infrastructure that supports research, 
+development, and deployment of ATP systems.
+The TPTP World includes the TPTP problem library~\cite{Sut17}, 
+the TSTP solution library~\cite{Sut10}, 
+standards for writing ATP problems and reporting ATP solutions~\cite{SS+06,Sut08-KEAPPA}, 
+tools and services for processing ATP problems and solutions~\cite{Sut10}, 
+and it supports the CADE ATP System Competition (CASC)~\cite{Sut16}.
+% Various parts of the TPTP World have been used in a range of applications, in both academia and 
+% industry.
+The web page \smalltt{tptp.org} provides access to all components.
+
+The TPTP language~\cite{Sut23-IGPL} is one of the keys to the success of the TPTP World.
+The TPTP language is used for writing both problems and solutions, which enables convenient 
+communication between ATP systems and tools.
+% Originally the TPTP World supported only first-order clause normal form (CNF)
+% \cite{SS98-JAR}.
+% Over the years full first-order form (FOF)
+% \cite{Sut09}, 
+% typed first-order form (TFF)
+% \cite{SS+12,BP13-TFF1}, 
+% typed extended first-order form (TXF)
+% \cite{SK18}, 
+% typed higher-order form (THF)
+% \cite{SB10,KSR16}, 
+% and non-classical forms (NTF)~\cite{SF+22} have been added.
+Problems and solutions are built from {\em annotated formulae} of the form:
+\begin{center}
+{\em language}{\tt (}{\em name}{\tt ,}
+{\em role}{\tt ,}
+{\em formula}{\tt ,}
+{\em source}{\tt ,}
+{\em useful\_info}{\tt )}
+\end{center}
+The {\em language}s supported are \smalltt{cnf} (clause normal form), \smalltt{fof}
+(first-order form), \smalltt{tff} (typed first-order form), and \smalltt{thf}
+(typed higher-order form).
+The {\em role}, e.g., \smalltt{axiom}, \smalltt{lemma}, \smalltt{conjecture}, defines the 
+use of the formula.
+In a {\em formula}, terms and atoms follow Prolog conventions -- functions and predicates start 
+with a lowercase letter and variables start with an uppercase letter.
+The language also supports interpreted symbols,
+% that either start with a {\tt \$}, 
+e.g., the truth constants \smalltt{\$true} and \smalltt{\$false}.
+% or are composed of 
+% non-alphabetic characters, e.g., integer/rational/real numbers such as 27, 43/92, -99.66.
+The main logical connectives in the TPTP language are
+% {\tt !>}, {\tt ?*}, {\tt @+}, {\tt @-}, 
+{\tt !}, {\tt ?}, {\tt {\mytilde}}, {\tt |}, {\tt \&}, 
+{\tt =>}, {\tt <=}, {\tt <=>}, and {\tt <{\mytilde}>}, for the mathematical connectives
+% $\Pi$, $\Sigma$, choice (indefinite description), definite description,
+$\forall$, $\exists$, $\neg$, $\vee$, $\wedge$, $\Rightarrow$, $\Leftarrow$, $\Leftrightarrow$, 
+and $\oplus$ respectively.
+Equality and inequality are expressed as the infix operators {\tt =} and {\tt !=}.
+The {\em source} and {\em useful\_info} are optional.
+
+%--------------------------------------------------------------------------------------------------
+\section{Example Solutions and their Visualizations}
+\label{Example}
+
+
+%--------------------------------------------------------------------------------------------------
+\section{Conclusion}
+\label{Conclusion}
+
+This paper describes the derivation and interpretation viewers in the TPTP World: 
+the Interactive Derivation Viewer (IDV), the Interactive Tableau Viewer (ITV), the Interactive 
+Interpretation Viewer (IIV), and the Interactive Kripke Viewer (IKV).
+Users and developers of ATP systems are able to examine their ATP solutions in an interactive
+graphical environment, providing insights into features of the solutions.
+The viewers are freely accessible through SystemOnTPTP.
+
+%--------------------------------------------------------------------------------------------------
+\bibliographystyle{flairs}
+\bibliography{Bibliography.bib}
+%--------------------------------------------------------------------------------------------------
+\end{document}

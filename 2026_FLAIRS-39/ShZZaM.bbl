@@ -1,0 +1,157 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Blanchette and Nipkow}{2010}]{BN10-ITP}
+Blanchette, J., and Nipkow, T.
+\newblock 2010.
+\newblock {Nitpick: A Counterexample Generator for Higher-Order Logic Based on
+  a Relational Model Finder}.
+\newblock In Kaufmann, M., and Paulson, L., eds., {\em {Proceedings of the 1st
+  International Conference on Interactive Theorem Proving}}, number 6172 in
+  Lecture Notes in Computer Science,  131--146.
+\newblock Springer-Verlag.
+
+\bibitem[\protect\citeauthoryear{Cheng \bgroup et al\mbox.\egroup
+  }{2025}]{CL+25}
+Cheng, F.; Li, H.; Liu, F.; Van~Rooij, R.; Zhang, K.; and Lin, Z.
+\newblock 2025.
+\newblock {Empowering LLMs with Logical Reasoning: A Comprehensive Survey}.
+\newblock In Kwok, J., ed., {\em {Proceedings of the 34th International Joint
+  Conference on Artificial Intelligence}},  10400--10408.
+\newblock AAAI Press.
+
+\bibitem[\protect\citeauthoryear{Claessen and S{\"o}rensson}{2003}]{CS03}
+Claessen, K., and S{\"o}rensson, N.
+\newblock 2003.
+\newblock {New Techniques that Improve MACE-style Finite Model Finding}.
+\newblock In Baumgartner, P., and Fermueller, C., eds., {\em {Proceedings of
+  the CADE-19 Workshop: Model Computation - Principles, Algorithms,
+  Applications}}.
+
+\bibitem[\protect\citeauthoryear{Han \bgroup et al\mbox.\egroup }{2024}]{HS+24}
+Han, S.; Schoelkopf, H.; Zhao, Y.; Qi, Z.; Riddell, M.; Zhou, W.; Coady, J.;
+  Peng, D.; Qiao, Y.; Benson, L.; Sun, L.; Wardle-Solano, A.~Szabó, H.;
+  Zubova, E.; Burtell, M.; Fan, J.; Liu, Y.; Wong, B.; Sailor, M.; Ni, A.; Nan,
+  L.; Kasai, J.; Yu, T.; Zhang, R.; Fabbri, A.; Kryscinski, W.; Yavuz, S.; Liu,
+  Y.; Lin, X.; Joty, S.; Zhou, Y.; Xiong, C.; Ying, R.; Cohan, A.; and Radev,
+  D.
+\newblock 2024.
+\newblock {FOLIO: Natural Language Reasoning with First-Order Logic}.
+\newblock In Al-Onaizan, Y.; Bansal, M.; and Chen, Y.-N., eds., {\em
+  {Proceedings of the 2024 Conference on Empirical Methods in Natural Language
+  Processing}},  22017–22031.
+\newblock Association for Computational Linguistics.
+
+\bibitem[\protect\citeauthoryear{Huang \bgroup et al\mbox.\egroup
+  }{2025}]{HY+25}
+Huang, L.; Yu, W.; Ma, W.; Zhong, W.; Feng, Z.; Wang, H.; Chen, Q.; Peng, W.;
+  Feng, X.; Qin, B.; and Liu, T.
+\newblock 2025.
+\newblock {A Survey on Hallucination in Large Language Models: Principles,
+  Taxonomy, Challenges, and Open Questions}.
+\newblock {\em ACM Transactions on Information Systems} 42:1--55.
+
+\bibitem[\protect\citeauthoryear{Li \bgroup et al\mbox.\egroup
+  }{2024}]{LL+24-arXiv}
+Li, Q.; Li, J.; Liu, T.; Zeng, Y.; Cheng, M.; Huang, W.; and Liu, Q.
+\newblock 2024.
+\newblock {Leveraging LLMs for Hypothetical Deduction in Logical Inference: A
+  Neuro-Symbolic Approach}.
+
+\bibitem[\protect\citeauthoryear{Olausson \bgroup et al\mbox.\egroup
+  }{2023}]{OG+23}
+Olausson, T.; Gu, A.; Lipkin, B.; Zhang, C.; Solar-Lezama, A.; Tenenbaum, J.;
+  and Levy, R.
+\newblock 2023.
+\newblock {LINC: A Neurosymbolic Approach for Logical Reasoning by Combining
+  Languag Models with First-Order Logic Provers}.
+\newblock In Pino, J., and Bali, K., eds., {\em {Proceedings of the 2023
+  Conference on Empirical Methods in Natural Language Processing}},
+  5153--5176.
+\newblock Association for Computational Linguistics.
+
+\bibitem[\protect\citeauthoryear{Peykani \bgroup et al\mbox.\egroup
+  }{2025}]{PR+25}
+Peykani, P.; Ramezanlou, F.; Tanasescu, C.; and Ghanidel, S.
+\newblock 2025.
+\newblock {Large Language Models: A Structured Taxonomy and Review of
+  Challenges, Limitations, Solutions, and Future Directions}.
+\newblock {\em Applied Sciences} 15(14):8103.
+
+\bibitem[\protect\citeauthoryear{Robinson and Voronkov}{2001}]{RV01-HAR}
+Robinson, A., and Voronkov, A.
+\newblock 2001.
+\newblock {\em {Handbook of Automated Reasoning}}.
+\newblock Elsevier Science.
+
+\bibitem[\protect\citeauthoryear{Sajjadi~Mohammadabadi \bgroup et
+  al\mbox.\egroup }{2025}]{MK+25}
+Sajjadi~Mohammadabadi, S.; Kara, B.; Eyupoglu, C.; Uzay, C.; Tosun, M.; and
+  Karakuş, O.
+\newblock 2025.
+\newblock {A Survey of Large Language Models: Evolution, Architectures,
+  Adaptation, Benchmarking, Applications, Challenges, and Societal
+  Implications.}
+\newblock {\em Electronics} 14(18):3580.
+
+\bibitem[\protect\citeauthoryear{Sutcliffe \bgroup et al\mbox.\egroup
+  }{2006}]{SS+06}
+Sutcliffe, G.; Schulz, S.; Claessen, K.; and Van~Gelder, A.
+\newblock 2006.
+\newblock {Using the TPTP Language for Writing Derivations and Finite
+  Interpretations}.
+\newblock In Furbach, U., and Shankar, N., eds., {\em {Proceedings of the 3rd
+  International Joint Conference on Automated Reasoning}}, number 4130 in
+  Lecture Notes in Artificial Intelligence,  67--81.
+\newblock Springer.
+
+\bibitem[\protect\citeauthoryear{Sutcliffe}{2008}]{Sut08-KEAPPA}
+Sutcliffe, G.
+\newblock 2008.
+\newblock {The SZS Ontologies for Automated Reasoning Software}.
+\newblock In Sutcliffe, G.; Rudnicki, P.; Schmidt, R.; Konev, B.; and Schulz,
+  S., eds., {\em {Proceedings of the LPAR Workshops: Knowledge Exchange:
+  Automated Provers and Proof Assistants, and the 7th International Workshop on
+  the Implementation of Logics}}, number 418 in CEUR Workshop Proceedings,
+  38--49.
+
+\bibitem[\protect\citeauthoryear{Sutcliffe}{2010}]{Sut10}
+Sutcliffe, G.
+\newblock 2010.
+\newblock {The TPTP World - Infrastructure for Automated Reasoning}.
+\newblock In Clarke, E., and Voronkov, A., eds., {\em {Proceedings of the 16th
+  International Conference on Logic for Programming, Artificial Intelligence,
+  and Reasoning}}, number 6355 in Lecture Notes in Artificial Intelligence,
+  1--12.
+\newblock Springer-Verlag.
+
+\bibitem[\protect\citeauthoryear{Sutcliffe}{2016}]{Sut16}
+Sutcliffe, G.
+\newblock 2016.
+\newblock {The CADE ATP System Competition - CASC}.
+\newblock {\em AI Magazine} 37(2):99--101.
+
+\bibitem[\protect\citeauthoryear{Sutcliffe}{2017}]{Sut17}
+Sutcliffe, G.
+\newblock 2017.
+\newblock {The TPTP Problem Library and Associated Infrastructure. From CNF to
+  TH0, TPTP v6.4.0}.
+\newblock {\em Journal of Automated Reasoning} 59(4):483--502.
+
+\bibitem[\protect\citeauthoryear{Sutcliffe}{2023}]{Sut23-IGPL}
+Sutcliffe, G.
+\newblock 2023.
+\newblock {The Logic Languages of the TPTP World}.
+\newblock {\em Logic Journal of the IGPL} 31(6):1153--1169.
+
+\bibitem[\protect\citeauthoryear{Yang \bgroup et al\mbox.\egroup
+  }{2025}]{YS+25}
+Yang, X.-W.; J-J., S.; Guo, L.-Z.; Zhang, B.-W.; Zhou, Z.; Jia, L.-H.; Dai,
+  W.-Z.; and Li, Y.-F.
+\newblock 2025.
+\newblock {Neuro-Symbolic Artificial Intelligence: Towards Improving the
+  Reasoning Abilities of Large Language Models}.
+\newblock In Kwok, J., ed., {\em {Proceedings of the 34th International Joint
+  Conference on Artificial Intelligence}},  10770--10778.
+\newblock AAAI Press.
+
+\end{thebibliography}
