@@ -10,6 +10,15 @@ Blanchette, J., and Nipkow, T.
   Lecture Notes in Computer Science,  131--146.
 \newblock Springer-Verlag.
 
+\bibitem[\protect\citeauthoryear{Blanchette and Paskevich}{2013}]{BP13-TFF1}
+Blanchette, J., and Paskevich, A.
+\newblock 2013.
+\newblock {TFF1: The TPTP Typed First-order Form with Rank-1 Polymorphism}.
+\newblock In Bonacina, M., ed., {\em {Proceedings of the 24th International
+  Conference on Automated Deduction}}, number 7898 in Lecture Notes in
+  Artificial Intelligence,  414--420.
+\newblock Springer-Verlag.
+
 \bibitem[\protect\citeauthoryear{Cheng \bgroup et al\mbox.\egroup
   }{2025}]{CL+25}
 Cheng, F.; Li, H.; Liu, F.; Van~Rooij, R.; Zhang, K.; and Lin, Z.
@@ -104,6 +113,17 @@ Sutcliffe, G.; Schulz, S.; Claessen, K.; and Van~Gelder, A.
   Lecture Notes in Artificial Intelligence,  67--81.
 \newblock Springer.
 
+\bibitem[\protect\citeauthoryear{Sutcliffe \bgroup et al\mbox.\egroup
+  }{2012}]{SS+12}
+Sutcliffe, G.; Schulz, S.; Claessen, K.; and Baumgartner, P.
+\newblock 2012.
+\newblock {The TPTP Typed First-order Form with Arithmetic}.
+\newblock In Bj{\o}rner, N., and Voronkov, A., eds., {\em {Proceedings of the
+  18th International Conference on Logic for Programming, Artificial
+  Intelligence, and Reasoning}}, number 7180 in Lecture Notes in Artificial
+  Intelligence,  406--419.
+\newblock Springer-Verlag.
+
 \bibitem[\protect\citeauthoryear{Sutcliffe}{2008}]{Sut08-KEAPPA}
 Sutcliffe, G.
 \newblock 2008.
@@ -142,6 +162,15 @@ Sutcliffe, G.
 \newblock 2023.
 \newblock {The Logic Languages of the TPTP World}.
 \newblock {\em Logic Journal of the IGPL} 31(6):1153--1169.
+
+\bibitem[\protect\citeauthoryear{Sutcliffe}{2024}]{Sut24}
+Sutcliffe, G.
+\newblock 2024.
+\newblock {Stepping Stones in the TPTP World}.
+\newblock In Benzm{\"u}ller, C.; Heule, M.; and Schmidt, R., eds., {\em
+  {Proceedings of the 12th International Joint Conference on Automated
+  Reasoning}}, number 14739 in Lecture Notes in Artificial Intelligence,
+  30--50.
 
 \bibitem[\protect\citeauthoryear{Yang \bgroup et al\mbox.\egroup
   }{2025}]{YS+25}

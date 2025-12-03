@@ -39,26 +39,24 @@
 \setlength{\textfloatsep}{10.0pt plus 2.0pt minus 0.0pt}
 
 % \pdfinfo{
-% /Title (ShZZaM: An LLM+ATP-based Natural Language to Logic Translator)
+% /Title (ShZZaM: An LLM+ATP Natural Language to Logic Translator)
 % /Author (Geoff Sutcliffe, Danial Haroon)}
 % \setcounter{secnumdepth}{2}  
 % \begin{document}
-% \title{ShZZaM: An LLM+ATP-based Natural Language to Logic Translator}
+% \title{ShZZaM: An LLM+ATP Natural Language to Logic Translator}
 % \author{Geoff Sutcliffe, Danial Haroon\\
 % University of Miami\\
-% Coral Gables\\
-% USA\\
+% Coral Gables, USA
 % }
 \pdfinfo{
-/Title (ShZZaM: An LLM+ATP-based Natural Language to Logic Translator)
+/Title (ShZZaM: An LLM+ATP Natural Language to Logic Translator)
 /Author (First1 Last1, First2 Last2)}
 \setcounter{secnumdepth}{2}  
 \begin{document}
-\title{ShZZaM: An LLM+ATP-based Natural Language to Logic Translator}
+\title{ShZZaM: An LLM+ATP Natural Language to Logic Translator}
 \author{First1 Last1, First2 Last2\\
-Affiliation1\\
-City1\\
-Country1\\
+Affiliation\\
+City, Country
 }
 \maketitle
 \begin{abstract}
@@ -70,9 +68,6 @@ MORE
 \end{quote}
 \end{abstract}
 %--------------------------------------------------------------------------------------------------
-\section{Introduction}
-\label{Introduction}
-
 Large Language Models (LLMs)~\cite{PR+25} have shown themselves to be useful in a broad range
 of applications~\cite{MK+25}.
 However, it is well known that LLMs make mistakes~\cite{HY+25}, and this is acknowledged on 
@@ -91,6 +86,30 @@ Work in this area includes LINC~\cite{OG+23}, FOLIO~\cite{HS+24}, and LINA~\cite
 This paper makes another contribution in this area, taking a new interactive approach to the
 translation process, zigzagging (hence the 'ZZ' in the tool name) between natural language and 
 logic until convergence is achieved.
+A key feature of ShZZaM is its use of LLMs and Automated Theorem Proving (ATP) tools, which
+complement each other in the translation steps.
+
+Figure~\ref{Process} shows the overall process implemented of ShZZaM.
+Starting with the natural language, a combination of LLMs and ATP tools make a first translation
+(step 1 - a ``Zig'') to the typed first-order logic in the TFF syntax~\cite{SS+12,BP13-TFF1} of 
+the TPTP World~\cite{Sut24}.
+An LLM is then used to translate the logic back to natural language (step 2 - a ``Zag'').
+An LLM is then used to judge (step 3) whether or not the new and previous natural language 
+statements have the same meaning, at a given level of required similarity.
+If they do, the logic is accepted as the translation.
+If they do not, another zigzag is performed, continuing until the natural language pairs 
+converge to the required level of similarity (or a limit is reached).
+
+LLMs know TFF - translation works.
+LLMs know language - similarity works.
+
+
+\begin{figure*}[bt]
+\centering
+\includegraphics[width=\textwidth]{Process.pdf}
+\caption{ShZZaM process}
+\label{Process}
+\end{figure*}
 
 Automated Theorem Proving (ATP) deals with the task of proving theorems from axioms – the
 derivation of conclusions that follow inevitably from known facts~\cite{RV01-HAR}.
