@@ -335,13 +335,13 @@ Format is Company[---Model], Company is OpenAI or Google, ---Model is optional."
         help="Similarity required to accept one ZigZag. Default %(default)s.")
     Parser.add_argument("-c","--similarity_convergence",type=float,default=0.94,
         help="Similarity required to stop ZigZaging. Default %(default)s.")
-    Parser.add_argument("-s","--zigzag_sequence_acceptable",type=float,default=0.94,
+    Parser.add_argument("-s","--zigzagging_acceptable",type=float,default=0.94,
         help="Similarity required to stop repeating ZigZaging. Default %(default)s.")
     Parser.add_argument("-z","--zigzag_limit",type=int,default=10,
         help="Maximal ZigZags. Default %(default)s.")
     Parser.add_argument("-l","--zig_correction_limit",type=int,default=10,
         help="Maximal NL2L corrections in one Zig(Zag). Default %(default)s.")
-    Parser.add_argument("-r","--zigzag_repeat_limit",type=int,default=3,
+    Parser.add_argument("-r","--zigzagging_limit",type=int,default=3,
         help="Maximal ZigZaging repeats. Default %(default)s.")
     Parser.add_argument("-p","--prover",type=str,default="None",
         help="ATP system for THM/UNS. Default %(default)s.")
@@ -538,8 +538,8 @@ def main():
     Prover:str = ""
     ModelFinder:str = ""
     ATPTimeLimit:int = 0
-    ZigZagSequenceAcceptable:float = 0.0
-    ZigZagRepeatLimit:int = 0
+    ZigZaggingAcceptable:float = 0.0
+    ZigZaggingLimit:int = 0
     PrintCSV:bool = False
 
     NL2LModel:str = ""
@@ -559,8 +559,8 @@ def main():
     Prover = CommandLineArguments.prover
     ModelFinder = CommandLineArguments.model_finder
     ATPTimeLimit = CommandLineArguments.time_limit
-    ZigZagSequenceAcceptable = CommandLineArguments.zigzag_sequence_acceptable
-    ZigZagRepeatLimit = CommandLineArguments.zigzag_repeat_limit
+    ZigZaggingAcceptable = CommandLineArguments.zigzagging_acceptable
+    ZigZaggingLimit = CommandLineArguments.zigzagging_limit
     PrintCSV = CommandLineArguments.values
     NL2LModel,L2NLModel,SimilarityModel = GetModels(CommandLineArguments)
 
@@ -569,11 +569,11 @@ def main():
 
     ZigZagRepeats = 0
     BestZigZagSimilarity = 0.0
-    while ZigZagRepeats < ZigZagRepeatLimit and \
-BestZigZagResult.OriginalSimilarityScore < ZigZagSequenceAcceptable:
+    while ZigZagRepeats < ZigZaggingLimit and \
+BestZigZagResult.OriginalSimilarityScore < ZigZaggingAcceptable:
         ZigZagRepeats += 1
         QuietPrint(4,0,f"---- ZigZag sequence {ZigZagRepeats} to improve on original similarity \
-{BestZigZagResult.OriginalSimilarityScore:.2f}, need similarity {ZigZagSequenceAcceptable:.2f}")
+{BestZigZagResult.OriginalSimilarityScore:.2f}, need similarity {ZigZaggingAcceptable:.2f}")
         ZigZagResult = ZigZagToConvergence(CommandLineArguments,NL2LModel,L2NLModel,\
 SimilarityModel,OriginalText,ATPTimeLimit)
         if ZigZagResult.Converged and \
@@ -593,7 +593,7 @@ SimilarityModel)
 
     if PrintCSV:
         print(f"RESULT: {FilePath},\
-{BestZigZagResult.OriginalSimilarityScore >= ZigZagSequenceAcceptable},\
+{BestZigZagResult.OriginalSimilarityScore >= ZigZaggingAcceptable},\
 {BestZigZagResult.OriginalSimilarityScore:.2f},{ZigZagRepeats},{BestZigZagResult.Converged},\
 {BestZigZagResult.LastTwoSimilarityScore:.2f},{BestZigZagResult.ZigZagNumber},\
 {BestZigZagResult.SZSStatus},Unknown,{BestZigZagResult.SyntaxCorrections},\
