@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  3 DEC 2025 13:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  3 DEC 2025 15:44
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -129,70 +129,58 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 6
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 80.
+(Font)              <9> on input line 79.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 80.
+(Font)              <6> on input line 79.
 
 
 pdfTeX warning: /usr/local/texlive/2023/bin/universal-darwin/pdflatex (file ./P
 rocess.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> 
 allowed
-<Process.pdf, id=1, 884.34387pt x 130.5678pt>
+<Process.pdf, id=1, 898.31606pt x 220.9053pt>
 File: Process.pdf Graphic file (type pdf)
 <use Process.pdf>
-Package pdftex.def Info: Process.pdf  used on input line 109.
-(pdftex.def)             Requested size: 505.89pt x 74.69336pt.
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-28.
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-LaTeX Font Info:    Trying to load font information for TS1+pcr on input line 1
-61.
+Package pdftex.def Info: Process.pdf  used on input line 113.
+(pdftex.def)             Requested size: 505.89pt x 124.40048pt.
 
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ts1pcr.fd
-File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
-)
-LaTeX Info: Symbol \texttildelow not provided by
-            font family pcr in TS1 encoding.
-            Default family used instead on input line 166.
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-166.
 
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ts1cmtt.fd
-File: ts1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-)
-LaTeX Info: Symbol \texttildelow not provided by
-            font family pcr in TS1 encoding.
-            Default family used instead on input line 167.
- [1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/
-local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}
+pdfTeX warning: /usr/local/texlive/2023/bin/universal-darwin/pdflatex (file ./Z
+ig.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
+wed
+<Zig.pdf, id=2, 445.665pt x 161.64389pt>
+File: Zig.pdf Graphic file (type pdf)
+<use Zig.pdf>
+Package pdftex.def Info: Zig.pdf  used on input line 131.
+(pdftex.def)             Requested size: 239.39438pt x 86.8301pt.
+
+Underfull \hbox (badness 1092) in paragraph at lines 147--153
+\OT1/ptm/m/n/10 view-ers in the TPTP World: the In-ter-ac-tive Deriva-tion
+ []
+
+[1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
+ocal/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 
-] (./ShZZaM.bbl [2{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/
-cm-super-ts1.enc} <./Process.pdf>])
-[3
+] (./ShZZaM.bbl
+[2 <./Process.pdf> <./Zig.pdf>]) [3
 
 ] (./ShZZaM.aux) ) 
 Here is how much of TeX's memory you used:
- 1697 strings out of 476025
- 29261 string characters out of 5790016
- 1867388 words of memory out of 5000000
- 22134 multiletter control sequences out of 15000+600000
- 530128 words of font info for 64 fonts, out of 8000000 for 9000
+ 1615 strings out of 476025
+ 27813 string characters out of 5790016
+ 1866388 words of memory out of 5000000
+ 22067 multiletter control sequences out of 15000+600000
+ 528340 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,11n,62p,204b,262s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-supe
-r/sftt1000.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/courier/ucrr
-8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></u
-sr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/t
-exlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ShZZaM.pdf (3 pages, 372121 bytes).
+</usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utm
+b8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></
+usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on ShZZaM.pdf (3 pages, 359781 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
+ 70 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

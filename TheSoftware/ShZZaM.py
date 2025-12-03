@@ -331,17 +331,17 @@ Format is Company[---Model], Company is OpenAI or Google, ---Model is optional."
         help="Model for L to NL conversion. Default " + DEFAULT_L2NL_MODEL)
     Parser.add_argument("-S","--similarity_model",type=str,default=argparse.SUPPRESS,
         help="Model for NL similarity measurement. Default " + DEFAULT_SIMILARITY_MODEL)
-    Parser.add_argument("-r","--similarity_required",type=float,default=0.74,
+    Parser.add_argument("-a","--similarity_acceptance",type=float,default=0.74,
         help="Similarity required to accept one ZigZag. Default %(default)s.")
-    Parser.add_argument("-s","--similarity_convergence",type=float,default=0.94,
+    Parser.add_argument("-c","--similarity_convergence",type=float,default=0.94,
         help="Similarity required to stop ZigZaging. Default %(default)s.")
+    Parser.add_argument("-s","--zigzag_sequence_acceptable",type=float,default=0.94,
+        help="Similarity required to stop repeating ZigZaging. Default %(default)s.")
     Parser.add_argument("-z","--zigzag_limit",type=int,default=10,
         help="Maximal ZigZags. Default %(default)s.")
-    Parser.add_argument("-c","--zig_correction_limit",type=int,default=10,
+    Parser.add_argument("-l","--zig_correction_limit",type=int,default=10,
         help="Maximal NL2L corrections in one Zig(Zag). Default %(default)s.")
-    Parser.add_argument("-a","--zigzag_acceptable",type=float,default=0.94,
-        help="Similarity required to stop repeating ZigZaging. Default %(default)s.")
-    Parser.add_argument("-l","--zigzag_repeat_limit",type=int,default=3,
+    Parser.add_argument("-r","--zigzag_repeat_limit",type=int,default=3,
         help="Maximal ZigZaging repeats. Default %(default)s.")
     Parser.add_argument("-p","--prover",type=str,default="None",
         help="ATP system for THM/UNS. Default %(default)s.")
@@ -360,13 +360,13 @@ def ZigZagToConvergence(CommandLineArguments:Namespace,NL2LModel:str,L2NLModel:s
 SimilarityModel:str,OriginalText:str,ATPTimeLimit:int) -> ZigZagResultType:
 
 #----These are set by command line parameters
-    SimilarityRequired:float = 0.0
-    SimilarityConvergence:float = 0.0
+    SimilarityAcceptable:float = 0.0
+    SimilarityConverged:float = 0.0
     ZigZagLimit:int = 0
     ZigCorrectionLimit:int = 0
 
-    SimilarityRequired = CommandLineArguments.similarity_required
-    SimilarityConvergence = CommandLineArguments.similarity_convergence
+    SimilarityAcceptable = CommandLineArguments.similarity_acceptance
+    SimilarityConverged = CommandLineArguments.similarity_convergence
     ZigZagLimit = CommandLineArguments.zigzag_limit
     ZigCorrectionLimit = CommandLineArguments.zig_correction_limit
 
@@ -457,11 +457,11 @@ after NL2L {ZigZagNumber}")
 after L2NL {ZigZagNumber}")
                 OriginalSimilarityScore,OriginalDifferences = \
 CompareNLs(SimilarityModel,OriginalText,NewText)
-                SimilarityError = OriginalSimilarityScore < SimilarityRequired
+                SimilarityError = OriginalSimilarityScore < SimilarityAcceptable
 #----There is a similarity error, rerun the NL2L
                 if SimilarityError and ZigCorrectionNumber < ZigCorrectionLimit:
                     QuietPrint(4,4,f"NL 0~{ZigZagNumber} == {OriginalSimilarityScore:.2f} < \
-{SimilarityRequired:.2f}. Zig again.")
+{SimilarityAcceptable:.2f}. Zig again.")
                     ZigCorrectionNumber += 1
                     TotalSimilarityCorrections += 1
                     QuietPrint(4,2,f"Doing Zag (L2NL) for similarity error {SimilarityCheckNumber} \
@@ -470,20 +470,20 @@ after NL2L {ZigZagNumber}")
                     QuietPrint(1,4,f"The similarity corrected logic from {NL2LModel} is\n{Logic}")
                 else:
                     QuietPrint(4,4,f"NL {ZigZagNumber-1}~{ZigZagNumber} == \
-{OriginalSimilarityScore:.2f} >= {SimilarityRequired:.2f}. ZigZag tolerable.")
+{OriginalSimilarityScore:.2f} >= {SimilarityAcceptable:.2f}. ZigZag ok.")
 #----Now we have a "tolerable" new language, or we bailed due to too many corrections
         if ZigCorrectionNumber <= ZigCorrectionLimit:
             if not SimilarityError:
                 QuietPrint(4,2,f"Doing convergence similarity check {ZigZagNumber}")
                 LastTwoSimilarityScore,LastTwoDifferences = \
 CompareNLs(SimilarityModel,OldText,NewText)
-                Converged = LastTwoSimilarityScore > SimilarityConvergence
+                Converged = LastTwoSimilarityScore > SimilarityConverged
                 if Converged:
                     QuietPrint(4,2,f"NL {ZigZagNumber-1}~{ZigZagNumber} == \
-{LastTwoSimilarityScore:.2f} >= {SimilarityConvergence:.2f}. ZigZag converged.")
+{LastTwoSimilarityScore:.2f} >= {SimilarityConverged:.2f}. ZigZag converged.")
                 else:
                     QuietPrint(4,4,f"NL {ZigZagNumber-1}~{ZigZagNumber} == \
-{LastTwoSimilarityScore:.2f} < {SimilarityConvergence:.2f}. ZigZag again.")
+{LastTwoSimilarityScore:.2f} < {SimilarityConverged:.2f}. ZigZag again.")
                 QuietPrint(2,0,f"There were {ZigCorrectionNumber} corrections in ZigZag \
 {ZigZagNumber}")
         else: 
@@ -538,7 +538,7 @@ def main():
     Prover:str = ""
     ModelFinder:str = ""
     ATPTimeLimit:int = 0
-    ZigZagAcceptable:float = 0.0
+    ZigZagSequenceAcceptable:float = 0.0
     ZigZagRepeatLimit:int = 0
     PrintCSV:bool = False
 
@@ -559,7 +559,7 @@ def main():
     Prover = CommandLineArguments.prover
     ModelFinder = CommandLineArguments.model_finder
     ATPTimeLimit = CommandLineArguments.time_limit
-    ZigZagAcceptable = CommandLineArguments.zigzag_acceptable
+    ZigZagSequenceAcceptable = CommandLineArguments.zigzag_sequence_acceptable
     ZigZagRepeatLimit = CommandLineArguments.zigzag_repeat_limit
     PrintCSV = CommandLineArguments.values
     NL2LModel,L2NLModel,SimilarityModel = GetModels(CommandLineArguments)
@@ -570,10 +570,10 @@ def main():
     ZigZagRepeats = 0
     BestZigZagSimilarity = 0.0
     while ZigZagRepeats < ZigZagRepeatLimit and \
-BestZigZagResult.OriginalSimilarityScore < ZigZagAcceptable:
+BestZigZagResult.OriginalSimilarityScore < ZigZagSequenceAcceptable:
         ZigZagRepeats += 1
         QuietPrint(4,0,f"---- ZigZag sequence {ZigZagRepeats} to improve on original similarity \
-{BestZigZagResult.OriginalSimilarityScore:.2f}, need similarity {ZigZagAcceptable:.2f}")
+{BestZigZagResult.OriginalSimilarityScore:.2f}, need similarity {ZigZagSequenceAcceptable:.2f}")
         ZigZagResult = ZigZagToConvergence(CommandLineArguments,NL2LModel,L2NLModel,\
 SimilarityModel,OriginalText,ATPTimeLimit)
         if ZigZagResult.Converged and \
@@ -592,7 +592,8 @@ SimilarityModel)
         QuietPrint(4,0,"-------------------------------------------------------------------------")
 
     if PrintCSV:
-        print(f"RESULT: {FilePath},{BestZigZagResult.OriginalSimilarityScore >= ZigZagAcceptable},\
+        print(f"RESULT: {FilePath},\
+{BestZigZagResult.OriginalSimilarityScore >= ZigZagSequenceAcceptable},\
 {BestZigZagResult.OriginalSimilarityScore:.2f},{ZigZagRepeats},{BestZigZagResult.Converged},\
 {BestZigZagResult.LastTwoSimilarityScore:.2f},{BestZigZagResult.ZigZagNumber},\
 {BestZigZagResult.SZSStatus},Unknown,{BestZigZagResult.SyntaxCorrections},\

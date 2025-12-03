@@ -64,7 +64,6 @@ City, Country
 This paper describes the ShZZaM tool that uses Large Language Models (LLMs) and Automated
 Theorem Proving (ATP) tools to translate natural language to typed first-order logic in
 the TFF syntax of the TPTP World.
-MORE
 \end{quote}
 \end{abstract}
 %--------------------------------------------------------------------------------------------------
@@ -76,7 +75,7 @@ In the face of such unreliability, the results from LLMs in mission-critical app
 verification.
 One approach is to translate the LLM input and output to a logical form that can be checked
 using Automated Theorem Proving (ATP) tools, e.g.,~\cite{YS+25,CL+25}.\footnote{%
-For a more comprehensive survey, just ask your favourite LLM to ``show some research on how LLMs 
+For a more comprehensive survey, just ask your favourite LLM to ``show me some research on how LLMs 
 make mistakes, and the need for symbolic checking of LLM output''.}
 A key step in this verification pipeline is the faithful translation of the natural language to
 an appropriate logical form.
@@ -95,14 +94,20 @@ Starting with the natural language, a combination of LLMs and ATP tools make a f
 the TPTP World~\cite{Sut24}.
 An LLM is then used to translate the logic back to natural language (step 2 - a ``Zag'').
 An LLM is then used to judge (step 3) whether or not the new and previous natural language 
-statements have the same meaning, at a given level of required similarity.
-If they do, the logic is accepted as the translation.
-If they do not, another zigzag is performed, continuing until the natural language pairs 
-converge to the required level of similarity (or a limit is reached).
-
-LLMs know TFF - translation works.
-LLMs know language - similarity works.
-
+statements have the same meaning.
+If they are very dissimilar - below the ``acceptance threshold'' - the Zig step is rejected, and
+is repeated.
+If they are adequately similar - above the ``convergence threshold'', the logic inbetween them 
+is accepted as the translation.
+If the similarity lies between the acceptance and convergence thresholds then another zigzag is
+performed. 
+This zizagging continues until the natural language pairs converge to the required level of
+similarity (or a limit is reached).
+ANOTHER LOOP HERE.
+Upon convergence the logic is sent to an ATP system via the SystemOnTPTP 
+service~\cite{Sut00-CADE-17}, either a model finder if there are only axioms in the logic, or a
+theorem prover if there is also a conjecture.
+The results from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA}.
 
 \begin{figure*}[bt]
 \centering
@@ -111,74 +116,39 @@ LLMs know language - similarity works.
 \label{Process}
 \end{figure*}
 
-Automated Theorem Proving (ATP) deals with the task of proving theorems from axioms – the
-derivation of conclusions that follow inevitably from known facts~\cite{RV01-HAR}.
-The converse task of disproving conjectures is another facet of interest~\cite{CS03,BN10-ITP}.
-The axioms and conjectures are written in an appropriately expressive logic, and the solutions
-(proofs and models) are often similarly written in logic~\cite{Sut23-IGPL}.
-The TPTP World~\cite{Sut17} is the well established infrastructure that supports research, 
-development, and deployment of ATP systems.
-The TPTP World includes the TPTP problem library~\cite{Sut17}, 
-the TSTP solution library~\cite{Sut10}, 
-standards for writing ATP problems and reporting ATP solutions~\cite{SS+06,Sut08-KEAPPA}, 
-tools and services for processing ATP problems and solutions~\cite{Sut10}, 
-and it supports the CADE ATP System Competition (CASC)~\cite{Sut16}.
-% Various parts of the TPTP World have been used in a range of applications, in both academia and 
-% industry.
-The web page \smalltt{tptp.org} provides access to all components.
+Step 1, the translation from natural language to TFF logic, is an iterative one involving LLMs
+and ATP tools.
+Figure~\ref{Zig} shows the details.
+An LLM is used to translate from natural language to logic.
+The translation is successively checked for syntax errors, and if successful for type errors
+(recall the logic is {\em typed} first-order logic).
+If an error occurs in either check the error message is captured, and passed back into the LLM
+for another attempt.
+Note that after the logic passes the syntax and type checks, there is another outer level of
+looping based on the similarity of the previous and new natural language, as explained above.
 
-The TPTP language~\cite{Sut23-IGPL} is one of the keys to the success of the TPTP World.
-The TPTP language is used for writing both problems and solutions, which enables convenient 
-communication between ATP systems and tools.
-% Originally the TPTP World supported only first-order clause normal form (CNF)
-% \cite{SS98-JAR}.
-% Over the years full first-order form (FOF)
-% \cite{Sut09}, 
-% typed first-order form (TFF)
-% \cite{SS+12,BP13-TFF1}, 
-% typed extended first-order form (TXF)
-% \cite{SK18}, 
-% typed higher-order form (THF)
-% \cite{SB10,KSR16}, 
-% and non-classical forms (NTF)~\cite{SF+22} have been added.
-Problems and solutions are built from {\em annotated formulae} of the form:
-\begin{center}
-{\em language}{\tt (}{\em name}{\tt ,}
-{\em role}{\tt ,}
-{\em formula}{\tt ,}
-{\em source}{\tt ,}
-{\em useful\_info}{\tt )}
-\end{center}
-The {\em language}s supported are \smalltt{cnf} (clause normal form), \smalltt{fof}
-(first-order form), \smalltt{tff} (typed first-order form), and \smalltt{thf}
-(typed higher-order form).
-The {\em role}, e.g., \smalltt{axiom}, \smalltt{lemma}, \smalltt{conjecture}, defines the 
-use of the formula.
-In a {\em formula}, terms and atoms follow Prolog conventions -- functions and predicates start 
-with a lowercase letter and variables start with an uppercase letter.
-The language also supports interpreted symbols,
-% that either start with a {\tt \$}, 
-e.g., the truth constants \smalltt{\$true} and \smalltt{\$false}.
-% or are composed of 
-% non-alphabetic characters, e.g., integer/rational/real numbers such as 27, 43/92, -99.66.
-The main logical connectives in the TPTP language are
-% {\tt !>}, {\tt ?*}, {\tt @+}, {\tt @-}, 
-{\tt !}, {\tt ?}, {\tt {\mytilde}}, {\tt |}, {\tt \&}, 
-{\tt =>}, {\tt <=}, {\tt <=>}, and {\tt <{\mytilde}>}, for the mathematical connectives
-% $\Pi$, $\Sigma$, choice (indefinite description), definite description,
-$\forall$, $\exists$, $\neg$, $\vee$, $\wedge$, $\Rightarrow$, $\Leftarrow$, $\Leftrightarrow$, 
-and $\oplus$ respectively.
-Equality and inequality are expressed as the infix operators {\tt =} and {\tt !=}.
-The {\em source} and {\em useful\_info} are optional.
+\begin{figure}[bt]
+\centering
+\includegraphics[width=\columnwidth]{Zig.pdf}
+\caption{Translation from natural language to TFF logic}
+\label{Zig}
+\end{figure}
 
-%--------------------------------------------------------------------------------------------------
-\section{Example Solutions and their Visualizations}
-\label{Example}
+The LLM translation from natural language to logic and back again works because the LLM has
+been exposed to enough natural language and enough TPTP format TFF logic.
+The former is simply the results of scraping the world's web sites, etc.
+The latter might be surprising, as TFF is comnparatively speaking a small fragment of the
+data used to train the LLM.
+Evidently there are adequate corpora that use TFF that are exposed on the web, e.g., the
+TPTP problem library~\cite{Sut17}, exports from the Isabelle Archive of Formal 
+Proofs~\cite{BH+15}, exports of the Mizar Mathematical Library~\cite{Urb03}, etc.
 
-
-%--------------------------------------------------------------------------------------------------
-\section{Conclusion}
-\label{Conclusion}
+ShZZaM is implemented in Python.~\footnote{%
+Available, with test files, from \smalltt{https://github.com/GeoffsPapers/ShZZaM}.}
+ShZZaM has parameters that allow the selection of LLMs (default OpenAI's {\tt gpt-5-chat-latest})
+and ATP systems (default Vampire~\cite{BB+25}), setting the acceptance, convergence, and
+sequence thresholds (defaults 0.74, 0.94, 0.94), impose limits on the numbers of zigzags in a 
+sequence (default 10), sequences (default 3), and failures in a Zig (default 10).
 
 This paper describes the derivation and interpretation viewers in the TPTP World: 
 the Interactive Derivation Viewer (IDV), the Interactive Tableau Viewer (ITV), the Interactive 

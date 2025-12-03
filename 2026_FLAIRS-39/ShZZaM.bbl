@@ -1,15 +1,5 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\citeauthoryear{Blanchette and Nipkow}{2010}]{BN10-ITP}
-Blanchette, J., and Nipkow, T.
-\newblock 2010.
-\newblock {Nitpick: A Counterexample Generator for Higher-Order Logic Based on
-  a Relational Model Finder}.
-\newblock In Kaufmann, M., and Paulson, L., eds., {\em {Proceedings of the 1st
-  International Conference on Interactive Theorem Proving}}, number 6172 in
-  Lecture Notes in Computer Science,  131--146.
-\newblock Springer-Verlag.
-
 \bibitem[\protect\citeauthoryear{Blanchette and Paskevich}{2013}]{BP13-TFF1}
 Blanchette, J., and Paskevich, A.
 \newblock 2013.
@@ -17,6 +7,16 @@ Blanchette, J., and Paskevich, A.
 \newblock In Bonacina, M., ed., {\em {Proceedings of the 24th International
   Conference on Automated Deduction}}, number 7898 in Lecture Notes in
   Artificial Intelligence,  414--420.
+\newblock Springer-Verlag.
+
+\bibitem[\protect\citeauthoryear{Blanchette \bgroup et al\mbox.\egroup
+  }{2015}]{BH+15}
+Blanchette, J.; Haslbeck, M.; Matichuk, D.; and Nipkow, T.
+\newblock 2015.
+\newblock {Mining the Archive of Formal Proofs}.
+\newblock In Kerber, M.; Carette, J.; Kaliszyk, C.; Rabe, F.; and Sorge, V.,
+  eds., {\em {Proceedings of the 8th Conference on Intelligent Computer
+  Mathematics}}, number 9150 in Lecture Notes in Computer Science,  3--17.
 \newblock Springer-Verlag.
 
 \bibitem[\protect\citeauthoryear{Cheng \bgroup et al\mbox.\egroup
@@ -27,14 +27,6 @@ Cheng, F.; Li, H.; Liu, F.; Van~Rooij, R.; Zhang, K.; and Lin, Z.
 \newblock In Kwok, J., ed., {\em {Proceedings of the 34th International Joint
   Conference on Artificial Intelligence}},  10400--10408.
 \newblock AAAI Press.
-
-\bibitem[\protect\citeauthoryear{Claessen and S{\"o}rensson}{2003}]{CS03}
-Claessen, K., and S{\"o}rensson, N.
-\newblock 2003.
-\newblock {New Techniques that Improve MACE-style Finite Model Finding}.
-\newblock In Baumgartner, P., and Fermueller, C., eds., {\em {Proceedings of
-  the CADE-19 Workshop: Model Computation - Principles, Algorithms,
-  Applications}}.
 
 \bibitem[\protect\citeauthoryear{Han \bgroup et al\mbox.\egroup }{2024}]{HS+24}
 Han, S.; Schoelkopf, H.; Zhao, Y.; Qi, Z.; Riddell, M.; Zhou, W.; Coady, J.;
@@ -86,12 +78,6 @@ Peykani, P.; Ramezanlou, F.; Tanasescu, C.; and Ghanidel, S.
   Challenges, Limitations, Solutions, and Future Directions}.
 \newblock {\em Applied Sciences} 15(14):8103.
 
-\bibitem[\protect\citeauthoryear{Robinson and Voronkov}{2001}]{RV01-HAR}
-Robinson, A., and Voronkov, A.
-\newblock 2001.
-\newblock {\em {Handbook of Automated Reasoning}}.
-\newblock Elsevier Science.
-
 \bibitem[\protect\citeauthoryear{Sajjadi~Mohammadabadi \bgroup et
   al\mbox.\egroup }{2025}]{MK+25}
 Sajjadi~Mohammadabadi, S.; Kara, B.; Eyupoglu, C.; Uzay, C.; Tosun, M.; and
@@ -101,17 +87,6 @@ Sajjadi~Mohammadabadi, S.; Kara, B.; Eyupoglu, C.; Uzay, C.; Tosun, M.; and
   Adaptation, Benchmarking, Applications, Challenges, and Societal
   Implications.}
 \newblock {\em Electronics} 14(18):3580.
-
-\bibitem[\protect\citeauthoryear{Sutcliffe \bgroup et al\mbox.\egroup
-  }{2006}]{SS+06}
-Sutcliffe, G.; Schulz, S.; Claessen, K.; and Van~Gelder, A.
-\newblock 2006.
-\newblock {Using the TPTP Language for Writing Derivations and Finite
-  Interpretations}.
-\newblock In Furbach, U., and Shankar, N., eds., {\em {Proceedings of the 3rd
-  International Joint Conference on Automated Reasoning}}, number 4130 in
-  Lecture Notes in Artificial Intelligence,  67--81.
-\newblock Springer.
 
 \bibitem[\protect\citeauthoryear{Sutcliffe \bgroup et al\mbox.\egroup
   }{2012}]{SS+12}
@@ -124,6 +99,15 @@ Sutcliffe, G.; Schulz, S.; Claessen, K.; and Baumgartner, P.
   Intelligence,  406--419.
 \newblock Springer-Verlag.
 
+\bibitem[\protect\citeauthoryear{Sutcliffe}{2000}]{Sut00-CADE-17}
+Sutcliffe, G.
+\newblock 2000.
+\newblock {SystemOnTPTP}.
+\newblock In McAllester, D., ed., {\em {Proceedings of the 17th International
+  Conference on Automated Deduction}}, number 1831 in Lecture Notes in
+  Artificial Intelligence,  406--410.
+\newblock Springer-Verlag.
+
 \bibitem[\protect\citeauthoryear{Sutcliffe}{2008}]{Sut08-KEAPPA}
 Sutcliffe, G.
 \newblock 2008.
@@ -134,34 +118,12 @@ Sutcliffe, G.
   the Implementation of Logics}}, number 418 in CEUR Workshop Proceedings,
   38--49.
 
-\bibitem[\protect\citeauthoryear{Sutcliffe}{2010}]{Sut10}
-Sutcliffe, G.
-\newblock 2010.
-\newblock {The TPTP World - Infrastructure for Automated Reasoning}.
-\newblock In Clarke, E., and Voronkov, A., eds., {\em {Proceedings of the 16th
-  International Conference on Logic for Programming, Artificial Intelligence,
-  and Reasoning}}, number 6355 in Lecture Notes in Artificial Intelligence,
-  1--12.
-\newblock Springer-Verlag.
-
-\bibitem[\protect\citeauthoryear{Sutcliffe}{2016}]{Sut16}
-Sutcliffe, G.
-\newblock 2016.
-\newblock {The CADE ATP System Competition - CASC}.
-\newblock {\em AI Magazine} 37(2):99--101.
-
 \bibitem[\protect\citeauthoryear{Sutcliffe}{2017}]{Sut17}
 Sutcliffe, G.
 \newblock 2017.
 \newblock {The TPTP Problem Library and Associated Infrastructure. From CNF to
   TH0, TPTP v6.4.0}.
 \newblock {\em Journal of Automated Reasoning} 59(4):483--502.
-
-\bibitem[\protect\citeauthoryear{Sutcliffe}{2023}]{Sut23-IGPL}
-Sutcliffe, G.
-\newblock 2023.
-\newblock {The Logic Languages of the TPTP World}.
-\newblock {\em Logic Journal of the IGPL} 31(6):1153--1169.
 
 \bibitem[\protect\citeauthoryear{Sutcliffe}{2024}]{Sut24}
 Sutcliffe, G.
@@ -171,6 +133,15 @@ Sutcliffe, G.
   {Proceedings of the 12th International Joint Conference on Automated
   Reasoning}}, number 14739 in Lecture Notes in Artificial Intelligence,
   30--50.
+
+\bibitem[\protect\citeauthoryear{Urban}{2003}]{Urb03}
+Urban, J.
+\newblock 2003.
+\newblock {Translating Mizar for First Order Theorem Provers}.
+\newblock In Asperti, A.; Buchberger, B.; and Davenport, J., eds., {\em
+  {Proceedings of the 2nd International Conference on Mathematical Knowledge
+  Management}}, number 2594 in Lecture Notes in Computer Science,  203--215.
+\newblock Springer-Verlag.
 
 \bibitem[\protect\citeauthoryear{Yang \bgroup et al\mbox.\egroup
   }{2025}]{YS+25}
