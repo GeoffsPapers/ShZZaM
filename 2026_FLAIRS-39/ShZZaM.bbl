@@ -19,6 +19,17 @@ Blanchette, J.; Haslbeck, M.; Matichuk, D.; and Nipkow, T.
   Mathematics}}, number 9150 in Lecture Notes in Computer Science,  3--17.
 \newblock Springer-Verlag.
 
+\bibitem[\protect\citeauthoryear{Bártek \bgroup et al\mbox.\egroup
+  }{2025}]{BB+25}
+Bártek, F.; Bhayat, A.; Coutelier, R.; Hajdu, M.; Hetzenberger, M.; Hozzová,
+  P.; Kovács, L.; Rath, J.; Rawson, M.; Reger, G.; Suda, M.; Schoisswohl, J.;
+  and Voronkov, A.
+\newblock 2025.
+\newblock {The Vampire Diary}.
+\newblock In Piskac, R., and Rakamaric, Z., eds., {\em {Proceedings of the 37th
+  International Conference on Computer Aided Verification}}, number 15933 in
+  Lecture Notes in Computer Science,  57--71.
+
 \bibitem[\protect\citeauthoryear{Cheng \bgroup et al\mbox.\egroup
   }{2025}]{CL+25}
 Cheng, F.; Li, H.; Liu, F.; Van~Rooij, R.; Zhang, K.; and Lin, Z.

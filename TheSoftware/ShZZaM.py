@@ -471,7 +471,7 @@ after NL2L {ZigZagNumber}")
                 else:
                     QuietPrint(4,4,f"NL {ZigZagNumber-1}~{ZigZagNumber} == \
 {OriginalSimilarityScore:.2f} >= {SimilarityAcceptable:.2f}. ZigZag ok.")
-#----Now we have a "tolerable" new language, or we bailed due to too many corrections
+#----Now we have acceptable new language, or we bailed due to too many corrections
         if ZigCorrectionNumber <= ZigCorrectionLimit:
             if not SimilarityError:
                 QuietPrint(4,2,f"Doing convergence similarity check {ZigZagNumber}")

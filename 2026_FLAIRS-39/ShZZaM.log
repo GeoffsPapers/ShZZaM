@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  3 DEC 2025 15:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  4 DEC 2025 13:27
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -137,47 +137,55 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 pdfTeX warning: /usr/local/texlive/2023/bin/universal-darwin/pdflatex (file ./P
 rocess.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> 
 allowed
-<Process.pdf, id=1, 898.31606pt x 220.9053pt>
+<Process.pdf, id=1, 988.65356pt x 219.70079pt>
 File: Process.pdf Graphic file (type pdf)
 <use Process.pdf>
 Package pdftex.def Info: Process.pdf  used on input line 113.
-(pdftex.def)             Requested size: 505.89pt x 124.40048pt.
+(pdftex.def)             Requested size: 505.89pt x 112.42137pt.
 
 
 pdfTeX warning: /usr/local/texlive/2023/bin/universal-darwin/pdflatex (file ./Z
-ig.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
-wed
-<Zig.pdf, id=2, 445.665pt x 161.64389pt>
-File: Zig.pdf Graphic file (type pdf)
-<use Zig.pdf>
-Package pdftex.def Info: Zig.pdf  used on input line 131.
-(pdftex.def)             Requested size: 239.39438pt x 86.8301pt.
+igZag.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> a
+llowed
+<ZigZag.pdf, id=2, 759.79855pt x 217.77359pt>
+File: ZigZag.pdf Graphic file (type pdf)
+<use ZigZag.pdf>
+Package pdftex.def Info: ZigZag.pdf  used on input line 138.
+(pdftex.def)             Requested size: 505.89pt x 145.00037pt.
 
-Underfull \hbox (badness 1092) in paragraph at lines 147--153
-\OT1/ptm/m/n/10 view-ers in the TPTP World: the In-ter-ac-tive Deriva-tion
+Underfull \vbox (badness 1400) has occurred while \output is active []
+
+ [1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/
+local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}
+
+
+
+]
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
+53.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 153--153
+[][]\OT1/ptm/m/n/9 Available, with test files, from
  []
 
-[1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
-ocal/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}
-
-
-
-] (./ShZZaM.bbl
-[2 <./Process.pdf> <./Zig.pdf>]) [3
-
-] (./ShZZaM.aux) ) 
+(./ShZZaM.bbl [2 <./Process.pdf> <./ZigZag.pdf>]) [3] (./ShZZaM.aux) ) 
 Here is how much of TeX's memory you used:
- 1615 strings out of 476025
- 27813 string characters out of 5790016
+ 1657 strings out of 476025
+ 28419 string characters out of 5790016
  1866388 words of memory out of 5000000
- 22067 multiletter control sequences out of 15000+600000
- 528340 words of font info for 57 fonts, out of 8000000 for 9000
+ 22103 multiletter control sequences out of 15000+600000
+ 529370 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,11n,62p,204b,262s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utm
-b8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></
-usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ShZZaM.pdf (3 pages, 359781 bytes).
+</usr/loc
+al/texlive/2023/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texli
+ve/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/f
+onts/type1/urw/times/utmri8a.pfb>
+Output written on ShZZaM.pdf (3 pages, 377628 bytes).
 PDF statistics:
  70 PDF objects out of 1000 (max. 8388607)
  41 compressed objects within 1 object stream

@@ -90,24 +90,23 @@ complement each other in the translation steps.
 
 Figure~\ref{Process} shows the overall process implemented of ShZZaM.
 Starting with the natural language, a combination of LLMs and ATP tools make a first translation
-(step 1 - a ``Zig'') to the typed first-order logic in the TFF syntax~\cite{SS+12,BP13-TFF1} of 
+(LLM-L+ATP - a ``Zig'') to the typed first-order logic in the TFF syntax~\cite{SS+12,BP13-TFF1} of 
 the TPTP World~\cite{Sut24}.
-An LLM is then used to translate the logic back to natural language (step 2 - a ``Zag'').
-An LLM is then used to judge (step 3) whether or not the new and previous natural language 
-statements have the same meaning.
-If they are very dissimilar - below the ``acceptance threshold'' - the Zig step is rejected, and
-is repeated.
-If they are adequately similar - above the ``convergence threshold'', the logic inbetween them 
+An LLM is then used to translate the logic back to natural language (LLM-NL - a ``Zag'').
+An LLM is then used to judge (LLM-S) the similarity in meaning of the new and previous natural
+language statements.
+If they are adequately similar - above a ``convergence threshold'', the logic inbetween them 
 is accepted as the translation.
-If the similarity lies between the acceptance and convergence thresholds then another zigzag is
-performed. 
 This zizagging continues until the natural language pairs converge to the required level of
 similarity (or a limit is reached).
-ANOTHER LOOP HERE.
 Upon convergence the logic is sent to an ATP system via the SystemOnTPTP 
 service~\cite{Sut00-CADE-17}, either a model finder if there are only axioms in the logic, or a
 theorem prover if there is also a conjecture.
 The results from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA}.
+If the similarity between the final natural language and the original natural language
+(which is computed in the zigzag step - see below) is above the ``zigzagging threshold'' the
+translation is complete.
+Otherwise the entire process repeats (or a limit is reached).
 
 \begin{figure*}[bt]
 \centering
@@ -116,46 +115,48 @@ The results from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA
 \label{Process}
 \end{figure*}
 
-Step 1, the translation from natural language to TFF logic, is an iterative one involving LLMs
-and ATP tools.
-Figure~\ref{Zig} shows the details.
-An LLM is used to translate from natural language to logic.
-The translation is successively checked for syntax errors, and if successful for type errors
-(recall the logic is {\em typed} first-order logic).
-If an error occurs in either check the error message is captured, and passed back into the LLM
+The translation from natural language to TFF logic and back to natural language - one zigzag, is 
+an iterative one involving LLMs and ATP tools.
+Figure~\ref{ZigZag} shows the details.
+LLM-L is used to translate from natural language to logic.
+The translation is successively checked using ATP tools for syntax errors and type errors (recall 
+the logic is {\em typed} first-order logic).
+If an error occurs in either check the error message is captured and passed back into the LLM-L 
 for another attempt.
-Note that after the logic passes the syntax and type checks, there is another outer level of
-looping based on the similarity of the previous and new natural language, as explained above.
+When a syntactically and type correct logic is created, LLM-NL translates the logic back to
+the provisional natural language, and LLM-S is used to compare this to the original natural 
+language.
+If the similarity is below an ``acceptance threshold'' the provisional natural language is rejected
+and the error is passed back into the LLM-L for another attempt.
+If the similarity is below the acceptance threshold the provisional natural language becomes the
+accepted result of the zigzag.
+It is this accepted natural language that is compared to the previous natural language for
+convergence, as explained above.
 
-\begin{figure}[bt]
+\begin{figure*}[bt]
 \centering
-\includegraphics[width=\columnwidth]{Zig.pdf}
-\caption{Translation from natural language to TFF logic}
-\label{Zig}
-\end{figure}
+\includegraphics[width=\textwidth]{ZigZag.pdf}
+\caption{Details of one zigzag}
+\label{ZigZag}
+\end{figure*}
 
 The LLM translation from natural language to logic and back again works because the LLM has
 been exposed to enough natural language and enough TPTP format TFF logic.
-The former is simply the results of scraping the world's web sites, etc.
-The latter might be surprising, as TFF is comnparatively speaking a small fragment of the
-data used to train the LLM.
+The former is the natural result of scraping the world's web sites, etc.
+The latter might be surprising, as TFF is a comparatively small fragment of the data used to train
+LLM models.
 Evidently there are adequate corpora that use TFF that are exposed on the web, e.g., the
 TPTP problem library~\cite{Sut17}, exports from the Isabelle Archive of Formal 
 Proofs~\cite{BH+15}, exports of the Mizar Mathematical Library~\cite{Urb03}, etc.
 
-ShZZaM is implemented in Python.~\footnote{%
+ShZZaM is implemented in Python.\footnote{%
 Available, with test files, from \smalltt{https://github.com/GeoffsPapers/ShZZaM}.}
 ShZZaM has parameters that allow the selection of LLMs (default OpenAI's {\tt gpt-5-chat-latest})
-and ATP systems (default Vampire~\cite{BB+25}), setting the acceptance, convergence, and
-sequence thresholds (defaults 0.74, 0.94, 0.94), impose limits on the numbers of zigzags in a 
-sequence (default 10), sequences (default 3), and failures in a Zig (default 10).
+and ATP systems (default Vampire~\cite{BB+25} for both theorem proving and model finding), setting
+the acceptance, convergence, and sequence thresholds (defaults 0.74, 0.94, 0.94), impose limits on
+the number of failures in a Zig (default 10), the number of zigzags in a sequence (default 10), 
+and the number of sequence repetitions (default 3).
 
-This paper describes the derivation and interpretation viewers in the TPTP World: 
-the Interactive Derivation Viewer (IDV), the Interactive Tableau Viewer (ITV), the Interactive 
-Interpretation Viewer (IIV), and the Interactive Kripke Viewer (IKV).
-Users and developers of ATP systems are able to examine their ATP solutions in an interactive
-graphical environment, providing insights into features of the solutions.
-The viewers are freely accessible through SystemOnTPTP.
 
 %--------------------------------------------------------------------------------------------------
 \bibliographystyle{flairs}
