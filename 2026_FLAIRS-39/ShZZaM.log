@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  4 DEC 2025 13:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  4 DEC 2025 14:12
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -140,7 +140,7 @@ allowed
 <Process.pdf, id=1, 988.65356pt x 219.70079pt>
 File: Process.pdf Graphic file (type pdf)
 <use Process.pdf>
-Package pdftex.def Info: Process.pdf  used on input line 113.
+Package pdftex.def Info: Process.pdf  used on input line 115.
 (pdftex.def)             Requested size: 505.89pt x 112.42137pt.
 
 
@@ -150,7 +150,7 @@ llowed
 <ZigZag.pdf, id=2, 759.79855pt x 217.77359pt>
 File: ZigZag.pdf Graphic file (type pdf)
 <use ZigZag.pdf>
-Package pdftex.def Info: ZigZag.pdf  used on input line 138.
+Package pdftex.def Info: ZigZag.pdf  used on input line 142.
 (pdftex.def)             Requested size: 505.89pt x 145.00037pt.
 
 Underfull \vbox (badness 1400) has occurred while \output is active []
@@ -162,12 +162,12 @@ local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 ]
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-53.
+57.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 157--157
 [][]\OT1/ptm/m/n/9 Available, with test files, from
  []
 
@@ -185,7 +185,7 @@ al/texlive/2023/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texli
 ve/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/te
 xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/f
 onts/type1/urw/times/utmri8a.pfb>
-Output written on ShZZaM.pdf (3 pages, 377628 bytes).
+Output written on ShZZaM.pdf (3 pages, 377784 bytes).
 PDF statistics:
  70 PDF objects out of 1000 (max. 8388607)
  41 compressed objects within 1 object stream

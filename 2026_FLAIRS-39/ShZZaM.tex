@@ -107,6 +107,8 @@ If the similarity between the final natural language and the original natural la
 (which is computed in the zigzag step - see below) is above the ``zigzagging threshold'' the
 translation is complete.
 Otherwise the entire process repeats (or a limit is reached).
+This outermost loop ensures the final natural language of the converged pair is adequately
+similar in meaning to the original natural language.
 
 \begin{figure*}[bt]
 \centering
@@ -128,6 +130,8 @@ the provisional natural language, and LLM-S is used to compare this to the origi
 language.
 If the similarity is below an ``acceptance threshold'' the provisional natural language is rejected
 and the error is passed back into the LLM-L for another attempt.
+This prevents the new natural language straying too far in meaning from the original natural
+language.
 If the similarity is below the acceptance threshold the provisional natural language becomes the
 accepted result of the zigzag.
 It is this accepted natural language that is compared to the previous natural language for
@@ -150,13 +154,14 @@ TPTP problem library~\cite{Sut17}, exports from the Isabelle Archive of Formal
 Proofs~\cite{BH+15}, exports of the Mizar Mathematical Library~\cite{Urb03}, etc.
 
 ShZZaM is implemented in Python.\footnote{%
-Available, with test files, from \smalltt{https://github.com/GeoffsPapers/ShZZaM}.}
+Available, with test files and the results discussed below, from 
+\smalltt{https://github.com/GeoffsPapers/ShZZaM}.}
 ShZZaM has parameters that allow the selection of LLMs (default OpenAI's {\tt gpt-5-chat-latest})
 and ATP systems (default Vampire~\cite{BB+25} for both theorem proving and model finding), setting
-the acceptance, convergence, and sequence thresholds (defaults 0.74, 0.94, 0.94), impose limits on
-the number of failures in a Zig (default 10), the number of zigzags in a sequence (default 10), 
-and the number of sequence repetitions (default 3).
-
+the acceptance, convergence, and zigzagging thresholds (defaults 0.74, 0.94, 0.94), setting the
+maximal number of failures in a Zig (default 10), number of zigzags in a sequence (default 10), 
+and number of zigzagging repetitions (default 3).
+Initial testing has been done on test data provided
 
 %--------------------------------------------------------------------------------------------------
 \bibliographystyle{flairs}

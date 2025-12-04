@@ -91,7 +91,7 @@ def SetModel(ModelRequested:str) -> str:
         else:
             return "OpenAI---" + DEFAULT_OPENAI_MODEL
 #--------------------------------------------------------------------------------------------------
-def GetModels(CommandLineArguments:Namespace) -> tuple[str,str,str]:
+def GetModels(CommandLineArguments:Namespace,APIKeyLines:str) -> tuple[str,str,str]:
 
 #----API keys are global
     global OPENAI_API_KEY
@@ -100,6 +100,7 @@ def GetModels(CommandLineArguments:Namespace) -> tuple[str,str,str]:
     NL2LModel:str = ""
     L2NLModel:str = ""
     SimilarityModel:str = ""
+#---Can't declare Matches:re.Match = None
 
 #----Set defaults for all models
     if hasattr(CommandLineArguments,"model"):
@@ -120,17 +121,26 @@ def GetModels(CommandLineArguments:Namespace) -> tuple[str,str,str]:
 
 #----Check user has the necessary API keys
     if (re.match(r"^OpenAI",NL2LModel) or re.match(r"^OpenAI",L2NLModel) or \
-re.match(r"^OpenAI",SimilarityModel)) and not "OPENAI_API_KEY" in os.environ:
-        print("ERROR: Your OpenAI API key is not set in the environment variable OPENAI_API_KEY")
-        sys.exit(0)
-    else:
-        OPENAI_API_KEY = str(os.getenv("OPENAI_API_KEY"))
+re.match(r"^OpenAI",SimilarityModel)):
+        Matches = re.search(r"#\s*OPENAI_API_KEY\s*=\s*(.+)",APIKeyLines,re.MULTILINE)
+        if Matches:
+            OPENAI_API_KEY = Matches.group(1)
+        elif "OPENAI_API_KEY" in os.environ:
+            OPENAI_API_KEY = str(os.getenv("OPENAI_API_KEY"))
+        else:
+            print("ERROR: OpenAI API key not in the file or environment variable OPENAI_API_KEY")
+            sys.exit(0)
+
     if (re.match(r"^Google",NL2LModel) or re.match(r"^Google",L2NLModel) or \
-re.match(r"^Google",SimilarityModel)) and not "GOOGLE_API_KEY" in os.environ:
-        print("ERROR: Your Google API key is not set in the environment variable GOOGLE_API_KEY")
-        sys.exit(0)
-    else:
-        GOOGLE_API_KEY = str(os.getenv("GOOGLE_API_KEY"))
+re.match(r"^Google",SimilarityModel)):
+        Matches = re.search(r"#\s*GOOGLE_API_KEY\s*=\s*(.+)",APIKeyLines,re.MULTILINE)
+        if Matches:
+            GOOGLE_API_KEY = Matches.group(1)
+        elif "GOOGLE_API_KEY" in os.environ:
+            GOOGLE_API_KEY = str(os.getenv("GOOGLE_API_KEY"))
+        else:
+            print("ERROR: Google API key not in the file or environment variable GOOGLE_API_KEY")
+            sys.exit(0)
 
 #----Make sure there is no mess in the output
     if (re.match(r"^Google",NL2LModel) or re.match(r"^Google",L2NLModel) or \
@@ -145,16 +155,19 @@ def CallOpenAI(Instruction:str,Content:str,ModelName:str) -> str:
 
     Client = OpenAI(api_key=OPENAI_API_KEY)
 
-    OpenAIResponse = Client.chat.completions.create(
-        model = ModelName,
-        temperature=0,
-        messages=[
-            {"role": "system", "content": Instruction},
-            {"role": "user", "content": Content},
-        ],
-    )
-
-    return OpenAIResponse.choices[0].message.content or ""
+    try:
+        OpenAIResponse = Client.chat.completions.create(
+            model = ModelName,
+            temperature=0,
+            messages=[
+                {"role": "system", "content": Instruction},
+                {"role": "user", "content": Content},
+            ],
+        )
+        return OpenAIResponse.choices[0].message.content or ""
+    except Exception as e:
+        print(f"ERROR: Calling OpenAI: {e}")
+        sys.exit(0)
 #--------------------------------------------------------------------------------------------------
 # Requires environment variable GOOGLE_API_KEY
 def CallGoogle(Instruction:str,Content:str,ModelName:str) -> str:
@@ -166,9 +179,12 @@ def CallGoogle(Instruction:str,Content:str,ModelName:str) -> str:
     genai.configure(api_key=GOOGLE_API_KEY)
 #----Call the model
     Model = genai.GenerativeModel(ModelName)
-    GoogleResponse = Model.generate_content(Prompt)
-
-    return GoogleResponse.text
+    try:
+        GoogleResponse = Model.generate_content(Prompt)
+        return GoogleResponse.text
+    except Exception as e:
+        print(f"ERROR: Calling Google: {e}")
+        sys.exit(0)
 #--------------------------------------------------------------------------------------------------
 def CallLLM(Model:str,Content:str,Task:str) -> str:
 
@@ -546,6 +562,7 @@ def main():
     L2NLModel:str = ""
     SimilarityModel:str = ""
     OriginalText:str = ""
+    APIKeyLines:str = ""
     ZigZagRepeats:int = 0
     BestZigZagSimilarity:float = 0.0
 
@@ -562,10 +579,17 @@ def main():
     ZigZaggingAcceptable = CommandLineArguments.zigzagging_acceptable
     ZigZaggingLimit = CommandLineArguments.zigzagging_limit
     PrintCSV = CommandLineArguments.values
-    NL2LModel,L2NLModel,SimilarityModel = GetModels(CommandLineArguments)
 
     with open(FilePath,"r",encoding="utf-8") as FileHandle:
-        OriginalText = FileHandle.read().strip()
+        for FileLine in FileHandle:
+            FileLine.strip()
+            if FileLine.startswith('#'):
+                if re.match(r".*API_KEY\s*=",FileLine):
+                    APIKeyLines += FileLine
+            else:
+               OriginalText += FileLine
+
+    NL2LModel,L2NLModel,SimilarityModel = GetModels(CommandLineArguments,APIKeyLines)
 
     ZigZagRepeats = 0
     BestZigZagSimilarity = 0.0
