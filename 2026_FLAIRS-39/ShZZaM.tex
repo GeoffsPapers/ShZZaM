@@ -95,7 +95,7 @@ the TPTP World~\cite{Sut24}.
 An LLM is then used to translate the logic back to natural language (LLM-NL - a ``Zag'').
 An LLM is then used to judge (LLM-S) the similarity in meaning of the new and previous natural
 language statements.
-If they are adequately similar - above a ``convergence threshold'', the logic inbetween them 
+If they are adequately similar - above a ``convergence threshold'', the logic in between them 
 is accepted as the translation.
 This zizagging continues until the natural language pairs converge to the required level of
 similarity (or a limit is reached).
@@ -211,10 +211,10 @@ Of those 17, HOWMANY produced the same logic in each of the three runs.
 % (not the maximal 216, because some runs used less than the maximal three zigzagging repetitions).
 
 Future work includes adding access to more LLMs, e.g., Anthropic's \smalltt{claude-sonnet-4-5},
-testing over larger datasets, e.g., the FOLIO~\cite{HS+24} abd ProofWriter~\cite{TDC21} datasets.
-The main weakness of ShZZam (and speculatively all other natural language to logic translators)
-is their stochastic nature -- the results change from run-to-run.
-This is a matter for further deeper research.
+testing over larger datasets, e.g., the FOLIO~\cite{HS+24} and ProofWriter~\cite{TDC21} datasets.
+The main weakness of ShZZaM (and speculatively all other natural language to logic translators)
+is its stochastic nature -- the logic produced can vary between runs.
+This is a matter for further and deeper research.
 
 %--------------------------------------------------------------------------------------------------
 \bibliographystyle{flairs}
