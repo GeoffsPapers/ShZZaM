@@ -69,6 +69,13 @@ Li, Q.; Li, J.; Liu, T.; Zeng, Y.; Cheng, M.; Huang, W.; and Liu, Q.
 \newblock {Leveraging LLMs for Hypothetical Deduction in Logical Inference: A
   Neuro-Symbolic Approach}.
 
+\bibitem[\protect\citeauthoryear{Niles and Pease}{2001}]{NP01}
+Niles, I., and Pease, A.
+\newblock 2001.
+\newblock {Towards A Standard Upper Ontology}.
+\newblock In Welty, C., and Smith, B., eds., {\em {Proceedings of the 2nd
+  International Conference on Formal Ontology in Information Systems}},  2--9.
+
 \bibitem[\protect\citeauthoryear{Olausson \bgroup et al\mbox.\egroup
   }{2023}]{OG+23}
 Olausson, T.; Gu, A.; Lipkin, B.; Zhang, C.; Solar-Lezama, A.; Tenenbaum, J.;
@@ -144,6 +151,27 @@ Sutcliffe, G.
   {Proceedings of the 12th International Joint Conference on Automated
   Reasoning}}, number 14739 in Lecture Notes in Artificial Intelligence,
   30--50.
+
+\bibitem[\protect\citeauthoryear{Tafjord, Mishra, and Clark}{2021}]{TDC21}
+Tafjord, O.; Mishra, B.; and Clark, P.
+\newblock 2021.
+\newblock {ProofWriter: Generating Implications, Proofs, and Abductive
+  Statements over Natural Language}.
+\newblock In Zong, C.; Xia, F.; Li, W.; and Navigli, R., eds., {\em
+  {Proceedings of the Joint Conference of the 59th Annual Meeting of the
+  Association for Computational Linguistics and the 11th International Joint
+  Conference on Natural Language Processing and Reasoning}},  3621--3634.
+\newblock Association for Computational Linguistics.
+
+\bibitem[\protect\citeauthoryear{Thompson \bgroup et al\mbox.\egroup
+  }{2025}]{TP+25}
+Thompson, R.; Pease, A.~Toutsios, A.; Milanese, R.; and Singley, J.
+\newblock 2025.
+\newblock {Formalizing Natural Language: Cultivating LLM Translations Using
+  Automated Theorem Proving}.
+\newblock In Komendantskaya, E.; Polgreen, E.; Saemann, C.; Stark, K.; and
+  Rawson, M., eds., {\em {Proceedings of the EuroProofNet-WG5 Workshop on
+  Theorem Proving and Machine Learning in the Age of LLMs}}.
 
 \bibitem[\protect\citeauthoryear{Urban}{2003}]{Urb03}
 Urban, J.

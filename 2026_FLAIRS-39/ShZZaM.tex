@@ -99,9 +99,8 @@ If they are adequately similar - above a ``convergence threshold'', the logic in
 is accepted as the translation.
 This zizagging continues until the natural language pairs converge to the required level of
 similarity (or a limit is reached).
-Upon convergence the logic is sent to an ATP system via the SystemOnTPTP 
-service~\cite{Sut00-CADE-17}, either a model finder if there are only axioms in the logic, or a
-theorem prover if there is also a conjecture.
+Upon convergence the logic is sent to an ATP system, either a model finder if there are only axioms
+in the logic, or a theorem prover if there is also a conjecture.
 The results from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA}.
 If the similarity between the final natural language and the original natural language
 (which is computed in the zigzag step - see below) is above the ``zigzagging threshold'' the
@@ -153,15 +152,69 @@ Evidently there are adequate corpora that use TFF that are exposed on the web, e
 TPTP problem library~\cite{Sut17}, exports from the Isabelle Archive of Formal 
 Proofs~\cite{BH+15}, exports of the Mizar Mathematical Library~\cite{Urb03}, etc.
 
-ShZZaM is implemented in Python.\footnote{%
-Available, with test files and the results discussed below, from 
-\smalltt{https://github.com/GeoffsPapers/ShZZaM}.}
-ShZZaM has parameters that allow the selection of LLMs (default OpenAI's {\tt gpt-5-chat-latest})
-and ATP systems (default Vampire~\cite{BB+25} for both theorem proving and model finding), setting
-the acceptance, convergence, and zigzagging thresholds (defaults 0.74, 0.94, 0.94), setting the
-maximal number of failures in a Zig (default 10), number of zigzags in a sequence (default 10), 
-and number of zigzagging repetitions (default 3).
-Initial testing has been done on test data provided
+ShZZaM is implemented in Python.
+The LLMs available are OpenAI's \smalltt{gpt-5-chat-latest} and Google's 
+\smalltt{gemini-2.5-flash}.
+Access to ATP tools is provided via the TPTP World's SystemOnTPTP service~\cite{Sut00-CADE-17}.
+ShZZaM has parameters that allow the selection of LLMs (default OpenAI) and ATP systems (default
+Vampire~\cite{BB+25} for both theorem proving and model finding), setting the acceptance,
+convergence, and zigzagging thresholds (defaults 0.74, 0.94, 0.94), setting the maximal number
+of failures in a Zig (default 10), number of zigzags in a sequence (default 10), and number of
+zigzagging repetitions (default 3).
+ShZZaM is available, with test files and the results discussed below, from 
+\smalltt{https://github.com/GeoffsPapers/ShZZaM}.
+It can also be run in default mode in SystemB4TPTP, at 
+\smalltt{https://tptp.org/cgi-bin/SystemB4TPTP}, by selecting ``English'' as the ``Input as in''
+option.
+The user has to provide their OpenAI API key as an initial comment line, e.g.,
+\begin{verbatim}
+# OPENAI_API_KEY=the_user_api_key
+ShZZaM is a nice translation tool.
+\end{verbatim}
+No tool needs to be selected -- just ``ProcessProblem''.
+
+Initial testing has been done on 12 test texts from SUMO-based research~\cite{NP01,TP+25}.
+There are four texts that are expected to produce axioms with a provable conjecture, three texts
+that that are expected to produce axioms with an unprovable conjecture, and five contradictory
+texts that are expected expected to produce unsatisfiable axioms.
+An example of the first type is:
+``If a country is a member of NATO, it will protect any member that is attacked. 
+Sweden is a member of NATO. 
+Germany is a member of NATO Russia attacked Germany.
+Will Sweden protect Germany?''.
+An example of the second type is:
+``Terry possesses a Traditional Savings Account.
+Terry withdrew from the Traditional Savings Account.
+The bank penalized Terry.
+Did the withdrawal cause a penalty?''.
+An example of the third type is:
+``The tornado damaged the house.
+The tornado did not damage the house.''.
+Testing used the default settings, plus additionally used the Google LLM for the language
+translations.
+ShZZaM was run on each text three times in each of the two configurations so that stochastic
+variations could be analysed, for a total of 72 runs.
+Of the 72 runs, 65 ended in convergence, and 36 converged above the 0.94 zigzagging threshold.
+Over the 72 runs, 26 required only one zigzagging repetition, 6 required two repetitions, and 40
+used all three repetitions.
+For the first type of test problem -- the theorems, 21 of the 24 runs produced results that were
+confirmed by the ATP system.
+For the second type -- the non-theorems, 17 of the 18 runs were confirmed, and for the third
+type -- the unsatisfiable axioms, 18 of the 30 runs were confirmed.
+The OpenAI model produced the best results, with 32 of its 36 runs producing confirmed results,
+while Google achieved only 24 out of 36.
+The stochastic variations are interesting:
+Of the 24 problem-LLM sets of three runs, 17 produced the same correctly confirmed result in all
+three runs.
+Of those 17, HOWMANY produced the same logic in each of the three runs.
+% resulting in 158 runs
+% (not the maximal 216, because some runs used less than the maximal three zigzagging repetitions).
+
+Future work includes adding access to more LLMs, e.g., Anthropic's \smalltt{claude-sonnet-4-5},
+testing over larger datasets, e.g., the FOLIO~\cite{HS+24} abd ProofWriter~\cite{TDC21} datasets.
+The main weakness of ShZZam (and speculatively all other natural language to logic translators)
+is their stochastic nature -- the results change from run-to-run.
+This is a matter for further deeper research.
 
 %--------------------------------------------------------------------------------------------------
 \bibliographystyle{flairs}

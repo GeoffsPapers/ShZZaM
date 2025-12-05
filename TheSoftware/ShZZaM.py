@@ -1,4 +1,4 @@
-#!/usr/bin/env python3 -u
+#!/usr/bin/env python3
 
 import getpass
 import argparse
@@ -77,7 +77,9 @@ def QuietPrint(Level:int,Indent:int,Message:str,End="\n") -> None:
             print("%---- DEBUG -----")
         elif Level == 1:
             print("%---- DETAIL ----")
-        print("% " + Message,end=End)
+        if Level < 10:
+            print("% ",end='')
+        print(Message,end=End)
         if Level <= 1:
             print("%------------------")
 #--------------------------------------------------------------------------------------------------
@@ -534,7 +536,8 @@ with similarity {ZigZagResult.LastTwoSimilarityScore:.2f}")
     QuietPrint(3,0,f"The differences between the penultimate and final NL are:\n \
 {ZigZagResult.LastTwoDifferences}")
     QuietPrint(3,0,"-------------------------------------------------------------------------")
-    QuietPrint(5,0,f"The final logic is :\n{ZigZagResult.Logic}")
+    QuietPrint(5,0,f"The final logic is :")
+    QuietPrint(10,0,f"{ZigZagResult.Logic}")
     QuietPrint(5,0,"-------------------------------------------------------------------------")
     QuietPrint(5,0,f"The ATP SZS status is {ZigZagResult.SZSStatus} with output\n\
 {ZigZagResult.SZSOutput}")
