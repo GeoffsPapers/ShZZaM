@@ -61,9 +61,8 @@ City, Country
 \maketitle
 \begin{abstract}
 \begin{quote}
-This paper describes the ShZZaM tool that uses Large Language Models (LLMs) and Automated
-Theorem Proving (ATP) tools to translate natural language to typed first-order logic in
-the TFF syntax of the TPTP World.
+This paper describes ShZZaM, a tool that translates natural language to typed first-order logic, 
+using Large Language Models (LLMs) and Automated Theorem Proving (ATP).
 \end{quote}
 \end{abstract}
 %--------------------------------------------------------------------------------------------------
@@ -82,31 +81,32 @@ an appropriate logical form.
 This task is difficult due to the ambiguous nature of natural language statements, especially
 informally expressed statements.
 Work in this area includes LINC~\cite{OG+23}, FOLIO~\cite{HS+24}, and LINA~\cite{LL+24-arXiv}.
-This paper makes another contribution in this area, taking a new interactive approach to the
-translation process, zigzagging (hence the 'ZZ' in the tool name) between natural language and 
-logic until convergence is achieved.
-A key feature of ShZZaM is its use of LLMs and Automated Theorem Proving (ATP) tools, which
+This paper makes another contribution, taking a new interactive approach to the translation
+process, zigzagging between natural language and logic until convergence is achieved (hence the
+'ZZ' in the tool name).
+A key feature of ShZZaM is its use of LLMs and Automated Theorem Proving (ATP), which
 complement each other in the translation steps.
 
-Figure~\ref{Process} shows the overall process implemented of ShZZaM.
-Starting with the natural language, a combination of LLMs and ATP tools make a first translation
-(LLM-L+ATP - a ``Zig'') to the typed first-order logic in the TFF syntax~\cite{SS+12,BP13-TFF1} of 
+Figure~\ref{Process} shows the overall process of ShZZaM.
+Starting with the natural language, a combination of LLMs and ATP tools makes a first translation
+(LLM-L+ATP - a ``Zig'') to the typed first-order logic in the TFF syntax~\cite{BP13-TFF1} of 
 the TPTP World~\cite{Sut24}.
 An LLM is then used to translate the logic back to natural language (LLM-NL - a ``Zag'').
-An LLM is then used to judge (LLM-S) the similarity in meaning of the new and previous natural
-language statements.
+An LLM is then used to judge the similarity in meaning of the new and previous natural language
+statements (LLM-S).
 If they are adequately similar - above a ``convergence threshold'', the logic in between them 
 is accepted as the translation.
+If not another zigzag is performed.
 This zizagging continues until the natural language pairs converge to the required level of
 similarity (or a limit is reached).
-Upon convergence the logic is sent to an ATP system, either a model finder if there are only axioms
-in the logic, or a theorem prover if there is also a conjecture.
+Upon convergence the logic is sent to an ATP system, either a theorem prover if there is a
+conjecture, or a model finder if there are only axioms.
 The results from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA}.
 If the similarity between the final natural language and the original natural language
-(which is computed in the zigzag step - see below) is above the ``zigzagging threshold'' the
-translation is complete.
-Otherwise the entire process repeats (or a limit is reached).
-This outermost loop ensures the final natural language of the converged pair is adequately
+(which is computed in the zigzag step - see below) is above the ``zigzagging sequence threshold''
+the translation is complete.
+Otherwise another zigzagging sequence is performed (or a limit is reached).
+This outermost zigzagging sequence loop ensures that the final natural language is adequately
 similar in meaning to the original natural language.
 
 \begin{figure*}[bt]
@@ -116,8 +116,8 @@ similar in meaning to the original natural language.
 \label{Process}
 \end{figure*}
 
-The translation from natural language to TFF logic and back to natural language - one zigzag, is 
-an iterative one involving LLMs and ATP tools.
+The translation from natural language to logic and back - one zigzag, is an iterative one involving
+LLMs and ATP tools.
 Figure~\ref{ZigZag} shows the details.
 LLM-L is used to translate from natural language to logic.
 The translation is successively checked using ATP tools for syntax errors and type errors (recall 
@@ -127,14 +127,14 @@ for another attempt.
 When a syntactically and type correct logic is created, LLM-NL translates the logic back to
 the provisional natural language, and LLM-S is used to compare this to the original natural 
 language.
-If the similarity is below an ``acceptance threshold'' the provisional natural language is rejected
-and the error is passed back into the LLM-L for another attempt.
-This prevents the new natural language straying too far in meaning from the original natural
-language.
-If the similarity is below the acceptance threshold the provisional natural language becomes the
-accepted result of the zigzag.
+If the similarity is above an ``acceptance threshold'' the provisional natural language becomes
+the accepted result of the zigzag.
 It is this accepted natural language that is compared to the previous natural language for
 convergence, as explained above.
+If the similarity is below the acceptance threshold then the provisional natural language is
+rejected, and the error is passed back into the LLM-L for another attempt.
+This check prevents the natural language straying too far in meaning from the original natural
+language over multiple zigzags.
 
 \begin{figure*}[bt]
 \centering
@@ -143,11 +143,11 @@ convergence, as explained above.
 \label{ZigZag}
 \end{figure*}
 
-The LLM translation from natural language to logic and back again works because the LLM has
-been exposed to enough natural language and enough TPTP format TFF logic.
+The LLM translation from natural language to logic and back again works because LLMs are
+exposed to enough natural language and enough TPTP format TFF logic.
 The former is the natural result of scraping the world's web sites, etc.
 The latter might be surprising, as TFF is a comparatively small fragment of the data used to train
-LLM models.
+LLMs.
 Evidently there are adequate corpora that use TFF that are exposed on the web, e.g., the
 TPTP problem library~\cite{Sut17}, exports from the Isabelle Archive of Formal 
 Proofs~\cite{BH+15}, exports of the Mizar Mathematical Library~\cite{Urb03}, etc.
@@ -155,18 +155,18 @@ Proofs~\cite{BH+15}, exports of the Mizar Mathematical Library~\cite{Urb03}, etc
 ShZZaM is implemented in Python.
 The LLMs available are OpenAI's \smalltt{gpt-5-chat-latest} and Google's 
 \smalltt{gemini-2.5-flash}.
-Access to ATP tools is provided via the TPTP World's SystemOnTPTP service~\cite{Sut00-CADE-17}.
+Access to ATP is provided via the TPTP World's SystemOnTPTP service~\cite{Sut00-CADE-17}.
 ShZZaM has parameters that allow the selection of LLMs (default OpenAI) and ATP systems (default
 Vampire~\cite{BB+25} for both theorem proving and model finding), setting the acceptance,
-convergence, and zigzagging thresholds (defaults 0.74, 0.94, 0.94), setting the maximal number
-of failures in a Zig (default 10), number of zigzags in a sequence (default 10), and number of
-zigzagging repetitions (default 3).
+convergence, and zigzagging sequence thresholds (defaults 0.74, 0.94, 0.94), setting the maximal
+numbers of failures in a Zig (default 10), zigzags in a sequence (default 10), and zigzagging
+sequence repetitions (default 3).
 ShZZaM is available, with test files and the results discussed below, from 
 \smalltt{https://github.com/GeoffsPapers/ShZZaM}.
 It can also be run in default mode in SystemB4TPTP, at 
 \smalltt{https://tptp.org/cgi-bin/SystemB4TPTP}, by selecting ``English'' as the ``Input as in''
 option.
-The user has to provide their OpenAI API key as an initial comment line, e.g.,
+An OpenAI API key has to be provided in an initial comment line, e.g.,
 \begin{verbatim}
 # OPENAI_API_KEY=the_user_api_key
 ShZZaM is a nice translation tool.
@@ -176,11 +176,12 @@ No tool needs to be selected -- just ``ProcessProblem''.
 Initial testing has been done on 12 test texts from SUMO-based research~\cite{NP01,TP+25}.
 There are four texts that are expected to produce axioms with a provable conjecture, three texts
 that that are expected to produce axioms with an unprovable conjecture, and five contradictory
-texts that are expected expected to produce unsatisfiable axioms.
+texts that are expected to produce unsatisfiable axioms.
 An example of the first type is:
 ``If a country is a member of NATO, it will protect any member that is attacked. 
 Sweden is a member of NATO. 
-Germany is a member of NATO Russia attacked Germany.
+Germany is a member of NATO.
+Russia attacked Germany.
 Will Sweden protect Germany?''.
 An example of the second type is:
 ``Terry possesses a Traditional Savings Account.
@@ -192,28 +193,29 @@ An example of the third type is:
 The tornado did not damage the house.''.
 Testing used the default settings, plus additionally used the Google LLM for the language
 translations.
-ShZZaM was run on each text three times in each of the two configurations so that stochastic
-variations could be analysed, for a total of 72 runs.
-Of the 72 runs, 65 ended in convergence, and 36 converged above the 0.94 zigzagging threshold.
-Over the 72 runs, 26 required only one zigzagging repetition, 6 required two repetitions, and 40
-used all three repetitions.
-For the first type of test problem -- the theorems, 21 of the 24 runs produced results that were
-confirmed by the ATP system.
-For the second type -- the non-theorems, 17 of the 18 runs were confirmed, and for the third
-type -- the unsatisfiable axioms, 18 of the 30 runs were confirmed.
-The OpenAI model produced the best results, with 32 of its 36 runs producing confirmed results,
-while Google achieved only 24 out of 36.
+Each test was run three times so that stochastic variations could be analysed, for a total of 
+72 runs.
+Of the 72 runs, 65 ended in convergence, 36 converged above the zigzagging sequence threshold,
+26 required only one zigzagging sequence, 6 required two sequences, and 40 used all three
+sequences.
+The ATP system confirmed the logical status in 21 of the 24 theorem runs, 17 of the 18 non-theorem
+runs, and 18 of the 30 unsatisfiable axiom set runs.
+The OpenAI model produced the best results, with 32 of its 36 results confirmed by the ATP system,
+while Google achieved 24 out of 36.
 The stochastic variations are interesting:
-Of the 24 problem-LLM sets of three runs, 17 produced the same correctly confirmed result in all
-three runs.
-Of those 17, HOWMANY produced the same logic in each of the three runs.
+Of the 24 sets of three test runs, 10 OpenAI sets and 7 Google sets were confirmed by the ATP
+system in all three runs.
+Manual inspection of the logic outputs showed that only 6 of the OpenAI sets and 1 of the Google
+sets produced essentially the same logic in each of the three runs.
+Thus repeatability is low.
+
 % resulting in 158 runs
 % (not the maximal 216, because some runs used less than the maximal three zigzagging repetitions).
 
 Future work includes adding access to more LLMs, e.g., Anthropic's \smalltt{claude-sonnet-4-5},
 testing over larger datasets, e.g., the FOLIO~\cite{HS+24} and ProofWriter~\cite{TDC21} datasets.
 The main weakness of ShZZaM (and speculatively all other natural language to logic translators)
-is its stochastic nature -- the logic produced can vary between runs.
+is its stochastic nature -- the logic produced typically varies between runs.
 This is a matter for further and deeper research.
 
 %--------------------------------------------------------------------------------------------------

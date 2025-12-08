@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  5 DEC 2025 14:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  8 DEC 2025 13:51
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -129,9 +129,9 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 6
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 79.
+(Font)              <9> on input line 78.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 79.
+(Font)              <6> on input line 78.
 
 
 pdfTeX warning: /usr/local/texlive/2023/bin/universal-darwin/pdflatex (file ./P
@@ -173,14 +173,18 @@ n/10 and Google's
  []
 
 
-Underfull \hbox (badness 1112) in paragraph at lines 155--170
-\OT1/pcr/m/n/9 gemini-2.5-flash\OT1/ptm/m/n/10 . Ac-cess to ATP tools is pro-vi
-ded
+Underfull \hbox (badness 1983) in paragraph at lines 155--170
+\OT1/ptm/m/n/10 ing), set-ting the ac-cep-tance, con-ver-gence, and zigzag-
  []
 
 
-Underfull \hbox (badness 1721) in paragraph at lines 155--170
-\OT1/ptm/m/n/10 of LLMs (de-fault Ope-nAI) and ATP sys-tems (de-fault
+Underfull \hbox (badness 2269) in paragraph at lines 155--170
+\OT1/ptm/m/n/10 10), zigzags in a se-quence (de-fault 10), and zigzag-
+ []
+
+
+Underfull \hbox (badness 2426) in paragraph at lines 155--170
+\OT1/ptm/m/n/10 able, with test files and the re-sults dis-cussed be-low,
  []
 
 
@@ -189,19 +193,19 @@ Underfull \hbox (badness 2547) in paragraph at lines 155--170
  []
 
 
-Underfull \hbox (badness 1107) in paragraph at lines 213--218
+Underfull \hbox (badness 1107) in paragraph at lines 215--220
 []\OT1/ptm/m/n/10 Future work in-cludes adding ac-cess to more LLMs,
  []
 
 
-Underfull \hbox (badness 8094) in paragraph at lines 213--218
-\OT1/ptm/m/n/10 datasets, e.g., the FO-LIO ( Han et al[] 2024) abd
+Underfull \hbox (badness 8094) in paragraph at lines 215--220
+\OT1/ptm/m/n/10 datasets, e.g., the FO-LIO ( Han et al[] 2024) and
  []
 
-
+(./ShZZaM.bbl
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2 <./Process.pdf> <./ZigZag.pdf>] (./ShZZaM.bbl [3]) [4
+ [2 <./Process.pdf> <./ZigZag.pdf>] [3]) [4
 
 ] (./ShZZaM.aux) ) 
 Here is how much of TeX's memory you used:
@@ -216,7 +220,7 @@ Here is how much of TeX's memory you used:
 crr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/loca
 l/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ShZZaM.pdf (4 pages, 385222 bytes).
+Output written on ShZZaM.pdf (4 pages, 385059 bytes).
 PDF statistics:
  73 PDF objects out of 1000 (max. 8388607)
  43 compressed objects within 1 object stream
