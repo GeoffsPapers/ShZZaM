@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 -u
 
 import getpass
 import argparse
@@ -8,10 +8,11 @@ import sys
 import re
 import requests
 from typing import Dict, Tuple, Optional, Match
+from dataclasses import dataclass
 from openai import OpenAI
 import google.generativeai as genai
 from google.generativeai import types
-from dataclasses import dataclass
+from anthropic import Anthropic, APIStatusError
 
 LOGIC_FORMAT_INSTRUCTION:str = "Use annotated tff formulae. Every sentence must be translated. A question must be translated into a formula with the 'conjecture' role. All other formulae must have the 'axiom' role. All the necessary type declarations must be provided. Declare each type in a separate annotated formula. Remember that variables start uppercase, and all other symbols start lowercase. Remember that the connectives are ~ for negation, | for disjunction, & for conjunction, => for implication, <=> for equivalence, = for equality, != for inequality. Put parentheses around all binary formulae. Output only the TPTP TFF result, no explanations and no comments lines. Use plain text, not markdown."
 SUMO_TERM_REQUEST:str = "Use symbols from the SUMO ontology."
@@ -25,6 +26,9 @@ OPENAI_API_KEY:str = ""
 DEFAULT_GOOGLE_MODEL:str = "gemini-2.5-flash"
 GOOGLE_API_KEY:str = ""
 
+DEFAULT_ANTHROPIC_MODEL:str = "claude-sonnet-4-5"
+ANTHROPIC_API_KEY:str = ""
+
 DEFAULT_NL2L_MODEL = "OpenAI---" + DEFAULT_OPENAI_MODEL
 DEFAULT_L2NL_MODEL = "OpenAI---" + DEFAULT_OPENAI_MODEL
 DEFAULT_SIMILARITY_MODEL = "OpenAI---" + DEFAULT_OPENAI_MODEL
@@ -36,6 +40,7 @@ SYNTAX_ERROR_INSTRUCTION:str = "There is a syntax error in that TPTP typed first
 
 TYPE_CHECKER:str = "Leo-III-STC---"
 TYPE_ERROR_RE:str = r"SZS status [a-zA-Z]*Error.*? : (.*)"
+# TYPE_ERROR_RE:str = r"SZS status [a-zA-Z]*Error.*? : (.*)|.*(Interpreter error in annotated TPTP.*)"
 TYPE_ERROR_INSTRUCTION:str = "There is a type error in that TPTP typed first-order logic. Here is the error message and the logic that has the errors. Please try again to correct the error. " + LOGIC_FORMAT_INSTRUCTION
 
 SIMILARITY_ERROR_INSTRUCTION:str = "That logic has a very different meaning to the original text. Please try again to make the logic have the same meaning as the sentences." + LOGIC_FORMAT_INSTRUCTION
@@ -71,16 +76,16 @@ class ZigZagResultType:
 #--------------------------------------------------------------------------------------------------
 def QuietPrint(Level:int,Indent:int,Message:str,End="\n") -> None:
 
-    if Level >= QUIETNESS:
+    if abs(Level) >= QUIETNESS:
         print(" " * Indent,end='')
         if Level == 0:
             print("%---- DEBUG -----")
         elif Level == 1:
             print("%---- DETAIL ----")
-        if Level < 10:
+        if Level >= 0:
             print("% ",end='')
         print(Message,end=End)
-        if Level <= 1:
+        if Level == 0 or Level == 1:
             print("%------------------")
 #--------------------------------------------------------------------------------------------------
 def SetModel(ModelRequested:str) -> str:
@@ -90,6 +95,8 @@ def SetModel(ModelRequested:str) -> str:
     else:
         if ModelRequested == "Google":
             return "Google---" + DEFAULT_GOOGLE_MODEL
+        elif ModelRequested == "Anthropic":
+            return "Anthropic---" + DEFAULT_ANTHROPIC_MODEL
         else:
             return "OpenAI---" + DEFAULT_OPENAI_MODEL
 #--------------------------------------------------------------------------------------------------
@@ -98,6 +105,7 @@ def GetModels(CommandLineArguments:Namespace,APIKeyLines:str) -> tuple[str,str,s
 #----API keys are global
     global OPENAI_API_KEY
     global GOOGLE_API_KEY
+    global ANTHROPIC_API_KEY
 
     NL2LModel:str = ""
     L2NLModel:str = ""
@@ -150,7 +158,42 @@ re.match(r"^Google",SimilarityModel)) and \
 (not "GRPC_VERBOSITY" in os.environ or os.getenv("GRPC_VERBOSITY") != "NONE"):
         print("To suppress GRPC messages set your GRPC_VERBOSITY environment variable to NONE")
 
+    if (re.match(r"^Anthropic",NL2LModel) or re.match(r"^Anthropic",L2NLModel) or \
+re.match(r"^Anthropic",SimilarityModel)):
+        Matches = re.search(r"#\s*ANTHROPIC_API_KEY\s*=\s*(.+)",APIKeyLines,re.MULTILINE)
+        if Matches:
+            ANTHROPIC_API_KEY = Matches.group(1)
+        elif "ANTHROPIC_API_KEY" in os.environ:
+            ANTHROPIC_API_KEY = str(os.getenv("ANTHROPIC_API_KEY"))
+        else:
+            print(
+"ERROR: Anthropic API key not in the file or environment variable ANTHROPIC_API_KEY")
+            sys.exit(0)
+
     return NL2LModel,L2NLModel,SimilarityModel
+#--------------------------------------------------------------------------------------------------
+# Requires environment variable ANTHROPIC_API_KEY
+def CallAnthropic(Instruction:str,Content:str,ModelName:str) -> str:
+
+    Prompt:str = Instruction + "\n" + Content
+
+    Client = Anthropic(api_key=ANTHROPIC_API_KEY)
+
+    try:
+        Message = Client.messages.create(
+            model=ModelName,
+            max_tokens=1024,
+            messages=[
+                {
+                    "role": "user",
+                    "content": Prompt,
+                }
+            ]
+        )
+        return Message.content[0].text or ""
+    except Exception as e:
+        print(f"ERROR: Calling Anthropic: {e}")
+        sys.exit(0)
 #--------------------------------------------------------------------------------------------------
 # Requires environment variable OPENAI_API_KEY
 def CallOpenAI(Instruction:str,Content:str,ModelName:str) -> str:
@@ -216,6 +259,8 @@ def CallLLM(Model:str,Content:str,Task:str) -> str:
             Result = CallOpenAI(Instruction,Content,Matches.group(2))
         elif Matches.group(1) == "Google":
             Result = CallGoogle(Instruction,Content,Matches.group(2))
+        elif Matches.group(1) == "Anthropic":
+            Result = CallAnthropic(Instruction,Content,Matches.group(2))
         else:
             QuietPrint(0,0,"Unknown model " + Model)
             return "None"
@@ -314,13 +359,17 @@ def RunATP(Logic:str,Prover:str,ModelFinder:str,TimeLimit:int) -> tuple[str,str]
         elif ModelFinder != "None":
             QuietPrint(4,0,f"Not running {ModelFinder} as there is a conjecture")
             System = "None"
+        else:
+            System = "None"
     else:
         if ModelFinder != "None":
             QuietPrint(4,0,f"Running {ModelFinder} to test the consistency of the axioms")
             System = ModelFinder
-        elif not GotSZS and Prover != "None":
+        elif Prover != "None":
             QuietPrint(4,0,f"Running {Prover} to test the inconsistency of the axioms")
             System = Prover
+        else:
+            System = "None"
 
     if System != "None":
         GotSZS,SZSStatus,SZSOutput = SystemOnTPTP(Logic,System,TimeLimit,"None")
@@ -328,7 +377,7 @@ def RunATP(Logic:str,Prover:str,ModelFinder:str,TimeLimit:int) -> tuple[str,str]
             SZSStatus = SZSAbbreviations[SZSStatus]
             QuietPrint(2,2,f"{System} SZS status {SZSStatus}")
             QuietPrint(2,2,f"{System} SZS output start")
-            QuietPrint(2,2,SZSOutput)
+            QuietPrint(-2,2,SZSOutput)
             QuietPrint(2,2,f"{System} SZS output end")
             return SZSStatus,SZSOutput
 
@@ -342,7 +391,7 @@ def ParseCommandLine() -> Namespace:
         help="Output suppression, 0=none,5=max. Default %(default)s")
     Parser.add_argument("-M","--model",type=str,default=argparse.SUPPRESS,
         help="Model for NL2L, L2NL, and similarity. \
-Format is Company[---Model], Company is OpenAI or Google, ---Model is optional.")
+Format is Company[---Model], Company is OpenAI or Google or Anthropic, ---Model is optional.")
     Parser.add_argument("-N","--nl2l_model",type=str,default=argparse.SUPPRESS,
         help="Model for NL to L conversion. Default " + DEFAULT_NL2L_MODEL)
     Parser.add_argument("-L","--l2nl_model",type=str,default=argparse.SUPPRESS,
@@ -537,7 +586,7 @@ with similarity {ZigZagResult.LastTwoSimilarityScore:.2f}")
 {ZigZagResult.LastTwoDifferences}")
     QuietPrint(3,0,"-------------------------------------------------------------------------")
     QuietPrint(5,0,f"The final logic is :")
-    QuietPrint(10,0,f"{ZigZagResult.Logic}")
+    QuietPrint(-5,0,f"{ZigZagResult.Logic}")
     QuietPrint(5,0,"-------------------------------------------------------------------------")
     QuietPrint(5,0,f"The ATP SZS status is {ZigZagResult.SZSStatus} with output\n\
 {ZigZagResult.SZSOutput}")
@@ -610,6 +659,13 @@ RunATP(ZigZagResult.Logic,Prover,ModelFinder,ATPTimeLimit)
             BestZigZagResult = ZigZagResult
 
     if BestZigZagResult.Converged:
+        if BestZigZagResult.OriginalSimilarityScore < ZigZaggingAcceptable:
+            QuietPrint(4,0,\
+"-------------------------------------------------------------------------")
+            QuietPrint(4,0,f"No acceptable convergence after \
+{ZigZagRepeats}:{ZigZaggingLimit} ZigZag sequences")
+            QuietPrint(4,0,f"Printing the best ZigZag sequence result")
+
         PrintResult(FilePath,OriginalText,ZigZagRepeats,BestZigZagResult,NL2LModel,L2NLModel,
 SimilarityModel)
     else:

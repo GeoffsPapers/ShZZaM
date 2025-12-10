@@ -1,5 +1,6 @@
 #!/bin/tcsh
 
+onintr cleanup
 set Repeats = $argv[1]
 shift
 
@@ -16,5 +17,6 @@ foreach TestFile ($argv)
         end
     end
 end
+cleanup:
 deactivate
 
