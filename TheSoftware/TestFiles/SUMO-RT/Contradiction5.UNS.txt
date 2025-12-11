@@ -1,2 +1,0 @@
-Rain is a subclass of weather.
-Rain is not a subclass of weather.
