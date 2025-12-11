@@ -106,16 +106,13 @@ Sajjadi~Mohammadabadi, S.; Kara, B.; Eyupoglu, C.; Uzay, C.; Tosun, M.; and
   Implications.}
 \newblock {\em Electronics} 14(18):3580.
 
-\bibitem[\protect\citeauthoryear{Sutcliffe \bgroup et al\mbox.\egroup
-  }{2012}]{SS+12}
-Sutcliffe, G.; Schulz, S.; Claessen, K.; and Baumgartner, P.
-\newblock 2012.
-\newblock {The TPTP Typed First-order Form with Arithmetic}.
-\newblock In Bj{\o}rner, N., and Voronkov, A., eds., {\em {Proceedings of the
-  18th International Conference on Logic for Programming, Artificial
-  Intelligence, and Reasoning}}, number 7180 in Lecture Notes in Artificial
-  Intelligence,  406--419.
-\newblock Springer-Verlag.
+\bibitem[\protect\citeauthoryear{Sutcliffe and Kotelnikov}{2018}]{SK18}
+Sutcliffe, G., and Kotelnikov, E.
+\newblock 2018.
+\newblock {TFX: The TPTP Extended Typed First-order Form}.
+\newblock In Konev, B.; Urban, J.; and Schulz, S., eds., {\em {Proceedings of
+  the 6th Workshop on Practical Aspects of Automated Reasoning}}, number 2162
+  in CEUR Workshop Proceedings,  72--87.
 
 \bibitem[\protect\citeauthoryear{Sutcliffe}{2000}]{Sut00-CADE-17}
 Sutcliffe, G.

@@ -81,9 +81,9 @@ an appropriate logical form.
 This task is difficult due to the ambiguous nature of natural language statements, especially
 informally expressed statements.
 Work in this area includes LINC~\cite{OG+23}, FOLIO~\cite{HS+24}, and LINA~\cite{LL+24-arXiv}.
-This paper makes another contribution, taking a new interactive approach to the translation
-process, zigzagging between natural language and logic until convergence is achieved (hence the
-'ZZ' in the tool name).
+This paper makes another contribution, taking a new iterative approach to the translation
+process, zigzagging between natural language and logic until convergence is achieved.
+% (hence the 'ZZ' in the tool name).
 A key feature of ShZZaM is its use of LLMs and Automated Theorem Proving (ATP), which
 complement each other in the translation steps.
 
@@ -143,8 +143,8 @@ language over multiple zigzags.
 \label{ZigZag}
 \end{figure*}
 
-The LLM translation from natural language to logic and back again works because LLMs are
-exposed to enough natural language and enough TPTP format TFF logic.
+LLMs can translate between natural language and TPTP format TFF logic because they are exposed to
+enough of each in their training.
 The former is the natural result of scraping the world's web sites, etc.
 The latter might be surprising, as TFF is a comparatively small fragment of the data used to train
 LLMs.
@@ -202,6 +202,7 @@ The ATP system confirmed the logical status in 21 of the 24 theorem runs, 17 of 
 runs, and 18 of the 30 unsatisfiable axiom set runs.
 The OpenAI model produced the best results, with 32 of its 36 results confirmed by the ATP system,
 while Google achieved 24 out of 36.
+In two examples Google used typed extended first-order logic~\cite{SK18}, i.e., with boolean terms.
 The stochastic variations are interesting:
 Of the 24 sets of three test runs, 10 OpenAI sets and 7 Google sets were confirmed by the ATP
 system in all three runs.
