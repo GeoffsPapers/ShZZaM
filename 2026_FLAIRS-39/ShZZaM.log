@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  11 DEC 2025 08:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  30 DEC 2025 12:46
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -137,11 +137,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 pdfTeX warning: /usr/local/texlive/2023/bin/universal-darwin/pdflatex (file ./P
 rocess.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> 
 allowed
-<Process.pdf, id=1, 988.65356pt x 219.70079pt>
+<Process.pdf, id=1, 995.63968pt x 219.70079pt>
 File: Process.pdf Graphic file (type pdf)
 <use Process.pdf>
 Package pdftex.def Info: Process.pdf  used on input line 114.
-(pdftex.def)             Requested size: 505.89pt x 112.42137pt.
+(pdftex.def)             Requested size: 505.89pt x 111.63022pt.
 
 
 pdfTeX warning: /usr/local/texlive/2023/bin/universal-darwin/pdflatex (file ./Z
@@ -173,23 +173,29 @@ n/10 and Google's
  []
 
 
-Underfull \hbox (badness 1983) in paragraph at lines 155--170
-\OT1/ptm/m/n/10 ing), set-ting the ac-cep-tance, con-ver-gence, and zigzag-
+Underfull \hbox (badness 3861) in paragraph at lines 155--170
+\OT1/ptm/m/n/10 ShZ-ZaM has pa-ram-e-ters that al-low the se-lec-tion of
  []
 
 
-Underfull \hbox (badness 2269) in paragraph at lines 155--170
-\OT1/ptm/m/n/10 10), zigzags in a se-quence (de-fault 10), and zigzag-
+Underfull \hbox (badness 3815) in paragraph at lines 155--170
+\OT1/ptm/m/n/10 pire ( B[]artek et al[] 2025) for both the-o-rem prov-ing
  []
 
 
-Underfull \hbox (badness 2426) in paragraph at lines 155--170
-\OT1/ptm/m/n/10 able, with test files and the re-sults dis-cussed be-low,
+Underfull \hbox (badness 1968) in paragraph at lines 155--170
+\OT1/ptm/m/n/10 (de-fault 10), zigzags in a se-quence (de-fault 10), and
  []
 
 
-Underfull \hbox (badness 2547) in paragraph at lines 155--170
-\OT1/ptm/m/n/10 can also be run in de-fault mode in Sys-temB4TPTP,
+Underfull \hbox (badness 1412) in paragraph at lines 155--170
+\OT1/ptm/m/n/10 avail-able, with test files and the re-sults dis-cussed be-
+ []
+
+
+Underfull \hbox (badness 1189) in paragraph at lines 155--170
+\OT1/ptm/m/n/10 low, from \OT1/pcr/m/n/9 https://github.com/TPTPWorld/ShZZaM\OT
+1/ptm/m/n/10 .
  []
 
 
@@ -205,14 +211,19 @@ Underfull \hbox (badness 8094) in paragraph at lines 216--221
 (./ShZZaM.bbl
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2 <./Process.pdf> <./ZigZag.pdf>] [3]) [4
+ [2 <./Process.pdf> <./ZigZag.pdf>]
+Underfull \hbox (badness 1087) in paragraph at lines 165--172
+\OT1/ptm/m/n/10 Aut-o-for-mal-iza-tion: To-k-eniza-tion is All You Need.  In
+ []
+
+[3]) [4
 
 ] (./ShZZaM.aux) ) 
 Here is how much of TeX's memory you used:
- 1660 strings out of 476025
- 28438 string characters out of 5790016
+ 1661 strings out of 476025
+ 28451 string characters out of 5790016
  1870388 words of memory out of 5000000
- 22106 multiletter control sequences out of 15000+600000
+ 22107 multiletter control sequences out of 15000+600000
  529370 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,11n,62p,204b,262s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -220,7 +231,7 @@ Here is how much of TeX's memory you used:
 crr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
 </usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/loca
 l/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ShZZaM.pdf (4 pages, 384940 bytes).
+Output written on ShZZaM.pdf (4 pages, 384770 bytes).
 PDF statistics:
  73 PDF objects out of 1000 (max. 8388607)
  43 compressed objects within 1 object stream

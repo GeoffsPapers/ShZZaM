@@ -101,7 +101,7 @@ This zizagging continues until the natural language pairs converge to the requir
 similarity (or a limit is reached).
 Upon convergence the logic is sent to an ATP system, either a theorem prover if there is a
 conjecture, or a model finder if there are only axioms.
-The results from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA}.
+The result from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA}.
 If the similarity between the final natural language and the original natural language
 (which is computed in the zigzag step - see below) is above the ``zigzagging sequence threshold''
 the translation is complete.
@@ -150,7 +150,7 @@ The latter might be surprising, as TFF is a comparatively small fragment of the 
 LLMs.
 Evidently there are adequate corpora that use TFF that are exposed on the web, e.g., the
 TPTP problem library~\cite{Sut17}, exports from the Isabelle Archive of Formal 
-Proofs~\cite{BH+15}, exports of the Mizar Mathematical Library~\cite{Urb03}, etc.
+Proofs~\cite{BH+15}, and exports of the Mizar Mathematical Library~\cite{Urb03}, etc.
 
 ShZZaM is implemented in Python.
 The LLMs available are OpenAI's \smalltt{gpt-5-chat-latest} and Google's 
@@ -173,7 +173,7 @@ ShZZaM is a nice translation tool.
 \end{verbatim}
 No tool needs to be selected -- just ``ProcessProblem''.
 
-Initial testing has been done on 12 test texts from SUMO-based research~\cite{NP01,TP+25}.
+Initial testing has been done on 12 test texts from SUMO-based research~\cite{NP01,TP+25-NeSy}.
 There are four texts that are expected to produce axioms with a provable conjecture, three texts
 that that are expected to produce axioms with an unprovable conjecture, and five contradictory
 texts that are expected to produce unsatisfiable axioms.

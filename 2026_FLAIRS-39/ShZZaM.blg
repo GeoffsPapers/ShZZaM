@@ -6,15 +6,15 @@ Database file #1: Bibliography.bib
 Warning--empty note in LL+24-arXiv
 You've used 20 entries,
             2568 wiz_defined-function locations,
-            732 strings with 10273 characters,
-and the built_in function-call counts, 12500 in all, are:
+            732 strings with 10230 characters,
+and the built_in function-call counts, 12474 in all, are:
 = -- 1204
-> -- 794
+> -- 788
 < -- 22
-+ -- 277
-- -- 277
-* -- 1066
-:= -- 2017
++ -- 275
+- -- 275
+* -- 1062
+:= -- 2011
 add.period$ -- 123
 call.type$ -- 20
 change.case$ -- 198
@@ -22,8 +22,8 @@ chr.to.int$ -- 20
 cite$ -- 21
 duplicate$ -- 445
 empty$ -- 742
-format.name$ -- 302
-if$ -- 2632
+format.name$ -- 300
+if$ -- 2628
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 19
