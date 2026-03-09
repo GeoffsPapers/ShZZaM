@@ -87,7 +87,8 @@ process, zigzagging between natural language and logic until convergence is achi
 A key feature of ShZZaM is its use of LLMs and Automated Theorem Proving (ATP), which
 complement each other in the translation steps.
 
-Figure~\ref{Process} shows the overall process of ShZZaM.
+Figure~\ref{ZigZagLoop} shows the overall process of ShZZaM.
+UPDATE TO INCLUDE NORMALIZATION HERE.
 Starting with the natural language, a combination of LLMs and ATP tools makes a first translation
 (LLM-L+ATP - a ``Zig'') to the typed first-order logic in the TFF syntax~\cite{BP13-TFF1} of 
 the TPTP World~\cite{Sut24}.
@@ -111,14 +112,14 @@ similar in meaning to the original natural language.
 
 \begin{figure*}[bt]
 \centering
-\includegraphics[width=\textwidth]{Process.pdf}
+\includegraphics[width=\textwidth]{ZigZagLoop.pdf}
 \caption{ShZZaM process}
-\label{Process}
+\label{ZigZagLoop}
 \end{figure*}
 
 The translation from natural language to logic and back - one zigzag, is an iterative one involving
 LLMs and ATP tools.
-Figure~\ref{ZigZag} shows the details.
+Figure~\ref{ZigLoop} shows the details.
 LLM-L is used to translate from natural language to logic.
 The translation is successively checked using ATP tools for syntax errors and type errors (recall 
 the logic is {\em typed} first-order logic).
@@ -138,9 +139,9 @@ language over multiple zigzags.
 
 \begin{figure*}[bt]
 \centering
-\includegraphics[width=\textwidth]{ZigZag.pdf}
+\includegraphics[width=\textwidth]{ZigLoop.pdf}
 \caption{Details of one zigzag}
-\label{ZigZag}
+\label{ZigLoop}
 \end{figure*}
 
 LLMs can translate between natural language and TPTP format TFF logic because they are exposed to
