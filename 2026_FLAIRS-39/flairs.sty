@@ -4,7 +4,7 @@
 %Filename: flairs.sty
 %
 \typeout{Conference Style for FLAIRS for LaTeX 2e -- version for the FLAIRS conference}
-% WARNING: IF YOU ARE USING THIS STYLE SHEET FOR A FLAIRS PUBLICATION, YOU
+% WARNING: IF YOU ARE USING THIS STYLE SHEET FOR AN FLAIRS PUBLICATION, YOU
 % MAY NOT MODIFY IT FOR ANY REASON. MODIFICATIONS (IN YOUR SOURCE 
 % OR IN THIS STYLE SHEET WILL RESULT IN REJECTION OF YOUR PAPER).
 % 
@@ -24,6 +24,18 @@
 % Do not modify this file 
 %
 % PHYSICAL PAGE LAYOUT
+
+\usepackage[
+pdflang=en-US,
+bookmarks=false,
+plainpages=false,
+colorlinks=true,
+linkcolor=black,
+citecolor=black,
+filecolor=black,
+urlcolor=black]{hyperref}
+
+
 \setlength\topmargin{-0.25in} \setlength\oddsidemargin{-0.25in}
 \setlength\textheight{9.0in} \setlength\textwidth{7.0in}
 \setlength\columnsep{0.375in} \newlength\titlebox \setlength\titlebox{2.25in}
@@ -37,9 +49,9 @@
 % gf: PRINT COPYRIGHT NOTICE
 % Geoff Sutcliffe: Updated to remove "all rights reserved", added CC BY-NC
 \def\copyright@year{\number\the\year{}}
-\def\copyright@text{Copyright \copyright\space \copyright@year{} by the authors.\\
-This open access article is published under the Creative Commons Attribution-NonCommercial 
-4.0 International License.}
+\def\copyright@text{Copyright \copyright\space \copyright@year{} by the authors. 
+Open access article published under the Creative Commons Attribution-NonCommercial 
+4.0 International License (CC BY-NC 4.0).}
 \def\copyright@on{T}
 %\def\nocopyright{\gdef\copyright@on{}} % Copyright notice is required for FLAIRS papers.
 \def\copyrighttext#1{\gdef\copyright@on{T}\gdef\copyright@text{#1}}
@@ -215,3 +227,6 @@ Abstract}\vspace{0.5ex}\begin{quote}\small}{\par\end{quote}\vskip 1ex}
 \sloppy\clubpenalty4000\widowpenalty4000
 \sfcode`\.=1000\relax}
 \let\endthebibliography=\endlist
+
+\usepackage{amsmath}
+\usepackage[tagged, highstructure]{accessibility}

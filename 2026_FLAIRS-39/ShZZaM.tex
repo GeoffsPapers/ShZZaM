@@ -1,4 +1,3 @@
-%File: formatting-instruction.tex
 \documentclass[letterpaper]{article}
 \usepackage{flairs}
 \usepackage{times}
@@ -37,28 +36,21 @@
 \renewcommand{\floatpagefraction}{0.66}
 \setlength{\floatsep}{2.0pt plus 2.0pt minus 2.0pt}
 \setlength{\textfloatsep}{10.0pt plus 2.0pt minus 0.0pt}
+\setlength{\abovecaptionskip}{0pt}   % Space above the caption
+\setlength{\belowcaptionskip}{0pt}   % Space below the caption
 
-% \pdfinfo{
-% /Title (ShZZaM: An LLM+ATP Natural Language to Logic Translator)
-% /Author (Geoff Sutcliffe, Danial Haroon)}
-% \setcounter{secnumdepth}{2}  
-% \begin{document}
-% \title{ShZZaM: An LLM+ATP Natural Language to Logic Translator}
-% \author{Geoff Sutcliffe, Danial Haroon\\
-% University of Miami\\
-% Coral Gables, USA
-% }
 \pdfinfo{
 /Title (ShZZaM: An LLM+ATP Natural Language to Logic Translator)
-/Author (First1 Last1, First2 Last2)}
+/Author (Geoff Sutcliffe, Danial Haroon)}
 \setcounter{secnumdepth}{2}  
 \begin{document}
 \title{ShZZaM: An LLM+ATP Natural Language to Logic Translator}
-\author{First1 Last1, First2 Last2\\
-Affiliation\\
-City, Country
+\author{Geoff Sutcliffe, Danial Haroon\\
+University of Miami,
+Coral Gables, USA
 }
 \maketitle
+%--------------------------------------------------------------------------------------------------
 \begin{abstract}
 \begin{quote}
 This paper describes ShZZaM, a tool that translates natural language to typed first-order logic, 
@@ -66,17 +58,20 @@ using Large Language Models (LLMs) and Automated Theorem Proving (ATP).
 \end{quote}
 \end{abstract}
 %--------------------------------------------------------------------------------------------------
+\section{Introduction}
+
 Large Language Models (LLMs)~\cite{PR+25} have shown themselves to be useful in a broad range
 of applications~\cite{MK+25}.
 However, it is well known that LLMs make mistakes~\cite{HY+25}, and this is acknowledged on 
-LLMs' web interfaces, e.g., ChatGPT admits "ChatGPT can make mistakes. Check important info".
-In the face of such unreliability, the results from LLMs in mission-critical applications require
-verification.
+LLMs' web interfaces.
+%  e.g., ChatGPT admits ``ChatGPT can make mistakes. Check important info''.
+In the face of such unreliability, the results from LLMs used in mission-critical applications 
+require verification.
 One approach is to translate the LLM input and output to a logical form that can be checked
 using Automated Theorem Proving (ATP) tools, e.g.,~\cite{YS+25,CL+25}.\footnote{%
 For a more comprehensive survey, just ask your favourite LLM to ``show me some research on how LLMs 
 make mistakes, and the need for symbolic checking of LLM output''.}
-A key step in this verification pipeline is the faithful translation of the natural language to
+A key step in this verification pipeline is faithful translation of the natural language to
 an appropriate logical form.
 This task is difficult due to the ambiguous nature of natural language statements, especially
 informally expressed statements.
@@ -86,15 +81,19 @@ process, zigzagging between natural language and logic until convergence is achi
 % (hence the 'ZZ' in the tool name).
 A key feature of ShZZaM is its use of LLMs and Automated Theorem Proving (ATP), which
 complement each other in the translation steps.
+%--------------------------------------------------------------------------------------------------
+\section{Architecture}
 
 Figure~\ref{ZigZagLoop} shows the overall process of ShZZaM.
-UPDATE TO INCLUDE NORMALIZATION HERE.
-Starting with the natural language, a combination of LLMs and ATP tools makes a first translation
-(LLM-L+ATP - a ``Zig'') to the typed first-order logic in the TFF syntax~\cite{BP13-TFF1} of 
-the TPTP World~\cite{Sut24}.
-An LLM is then used to translate the logic back to natural language (LLM-NL - a ``Zag'').
-An LLM is then used to judge the similarity in meaning of the new and previous natural language
-statements (LLM-S).
+Initially LLM-N is optionally used to normalize the text, rewriting to a clear form, breaking
+down long sentences, converting metaphors to their literal meaning, etc.
+Each ``ZigZag'' uses combination of LLMs and ATP tools to translate natural language to logic
+and back to natural language.
+LLM-L+ATP is used to translate the natural language the typed first-order logic in the 
+TFF syntax~\cite{BP13-TFF1} of the TPTP World~\cite{Sut24}.
+LLM-NL is used to translate the logic back to natural language.
+LLM-S is then used to judge the similarity in meaning of the new and previous natural language
+statements.
 If they are adequately similar - above a ``convergence threshold'', the logic in between them 
 is accepted as the translation.
 If not another zigzag is performed.
@@ -102,10 +101,10 @@ This zizagging continues until the natural language pairs converge to the requir
 similarity (or a limit is reached).
 Upon convergence the logic is sent to an ATP system, either a theorem prover if there is a
 conjecture, or a model finder if there are only axioms.
-The result from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA}.
+% The result from the ATP system is reported in the SZS format~\cite{Sut08-KEAPPA}.
 If the similarity between the final natural language and the original natural language
-(which is computed in the zigzag step - see below) is above the ``zigzagging sequence threshold''
-the translation is complete.
+% (which is computed in the zigzag step - see below) 
+is above the ``zigzagging sequence threshold'' the translation is complete.
 Otherwise another zigzagging sequence is performed (or a limit is reached).
 This outermost zigzagging sequence loop ensures that the final natural language is adequately
 similar in meaning to the original natural language.
@@ -121,11 +120,11 @@ The translation from natural language to logic and back - one zigzag, is an iter
 LLMs and ATP tools.
 Figure~\ref{ZigLoop} shows the details.
 LLM-L is used to translate from natural language to logic.
-The translation is successively checked using ATP tools for syntax errors and type errors (recall 
+The translation is successively checked by ATP tools for syntax errors and type errors (recall 
 the logic is {\em typed} first-order logic).
-If an error occurs in either check the error message is captured and passed back into the LLM-L 
-for another attempt.
-When a syntactically and type correct logic is created, LLM-NL translates the logic back to
+If an error occurs the error message is captured and passed back into the LLM-L for another 
+attempt.
+When syntactically and type correct logic is created, LLM-NL translates the logic back to
 the provisional natural language, and LLM-S is used to compare this to the original natural 
 language.
 If the similarity is above an ``acceptance threshold'' the provisional natural language becomes
@@ -153,9 +152,11 @@ Evidently there are adequate corpora that use TFF that are exposed on the web, e
 TPTP problem library~\cite{Sut17}, exports from the Isabelle Archive of Formal 
 Proofs~\cite{BH+15}, and exports of the Mizar Mathematical Library~\cite{Urb03}, etc.
 
+%--------------------------------------------------------------------------------------------------
+\section{Implementation and Testing}
+
 ShZZaM is implemented in Python.
-The LLMs available are OpenAI's \smalltt{gpt-5-chat-latest} and Google's 
-\smalltt{gemini-2.5-flash}.
+The LLMs available are ChatGPT, Gemini, Claude, and DeepSeek.
 Access to ATP is provided via the TPTP World's SystemOnTPTP service~\cite{Sut00-CADE-17}.
 ShZZaM has parameters that allow the selection of LLMs (default OpenAI) and ATP systems (default
 Vampire~\cite{BB+25} for both theorem proving and model finding), setting the acceptance,
@@ -165,14 +166,15 @@ sequence repetitions (default 3).
 ShZZaM is available, with test files and the results discussed below, from 
 \smalltt{https://github.com/TPTPWorld/ShZZaM}.
 It can also be run in default mode in SystemB4TPTP, at 
-\smalltt{https://tptp.org/cgi-bin/SystemB4TPTP}, by selecting ``English'' as the ``Input as in''
-option.
-An OpenAI API key has to be provided in an initial comment line, e.g.,
+\smalltt{https://tptp.org/cgi-bin/SystemB4TPTP}.
+% by selecting ``English'' as the ``Input as in'' option.
+An API key has to be provided in an initial comment line, e.g.,
 \begin{verbatim}
 # OPENAI_API_KEY=the_user_api_key
-ShZZaM is a nice translation tool.
+Show me that Socrates was mortal.
 \end{verbatim}
-No tool needs to be selected -- just ``ProcessProblem''.
+% DISCUSS ``Is there'' and ``Show that''.
+% No tool needs to be selected -- just ``ProcessProblem''.
 
 Initial testing has been done on 12 test texts from SUMO-based research~\cite{NP01,TP+25-NeSy}.
 There are four texts that are expected to produce axioms with a provable conjecture, three texts
@@ -214,7 +216,10 @@ Thus repeatability is low.
 % resulting in 158 runs
 % (not the maximal 216, because some runs used less than the maximal three zigzagging repetitions).
 
-Future work includes adding access to more LLMs, e.g., Anthropic's \smalltt{claude-sonnet-4-5},
+%--------------------------------------------------------------------------------------------------
+\section{Conclusion}
+
+Future work includes adding access to more LLMs, e.g., XAI's \smalltt{grok},
 testing over larger datasets, e.g., the FOLIO~\cite{HS+24} and ProofWriter~\cite{TDC21} datasets.
 The main weakness of ShZZaM (and speculatively all other natural language to logic translators)
 is its stochastic nature -- the logic produced typically varies between runs.
