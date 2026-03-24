@@ -87,9 +87,9 @@ complement each other in the translation steps.
 Figure~\ref{ZigZagLoop} shows the overall process of ShZZaM.
 Initially LLM-N is used to normalize the text, breaking down long sentences, converting metaphors 
 to their literal meaning, etc.
-Each ``ZigZag'' uses combination of LLMs and ATP tools to translate natural language to logic
-and back to natural language.
-LLM-L+ATP is used to translate the natural language the typed first-order logic in the 
+Each of the following ``ZigZag''s uses a combination of LLMs and ATP tools to translate natural 
+language to logic and back to natural language.
+LLM-L+ATP is used to translate the natural language to typed first-order logic in the 
 TFF syntax~\cite{BP13-TFF1} of the TPTP World~\cite{Sut24}.
 LLM-NL is used to translate the logic back to natural language.
 LLM-S is then used to judge the similarity in meaning of the new and previous natural language
@@ -121,8 +121,7 @@ The translation from natural language to logic and back - one zigzag, is an iter
 LLMs and ATP tools.
 Figure~\ref{ZigLoop} shows the details.
 LLM-L is used to translate from natural language to logic.
-The translation is successively checked by ATP tools for syntax errors and type errors (recall 
-the logic is {\em typed} first-order logic).
+The translation is successively checked by ATP tools for syntax errors and type errors.
 If an error occurs the error message is captured and passed back into the LLM-L for another 
 attempt.
 When syntactically and type correct logic is created, LLM-NL translates the logic back to
@@ -223,8 +222,8 @@ Thus repeatability is low.
 
 Future work includes adding access to more LLMs, e.g., Grok, testing over larger datasets, e.g., 
 the FOLIO~\cite{HS+24} and ProofWriter~\cite{TDC21} datasets.
-The main weakness of ShZZaM (and speculatively all other natural language to logic translators)
-is its stochastic nature -- the logic produced typically varies between runs.
+The main weakness of ShZZaM (and speculatively all other LLM-based natural language to logic 
+translators) is its stochastic nature -- the logic produced typically varies between runs.
 This is a matter for further and deeper research.
 
 %--------------------------------------------------------------------------------------------------
