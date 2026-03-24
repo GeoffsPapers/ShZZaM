@@ -72,8 +72,8 @@ using Automated Theorem Proving (ATP) tools, e.g.,~\cite{YS+25,CL+25}.\footnote{
 For a more comprehensive survey, just ask your favourite LLM to ``show me some research on how LLMs 
 make mistakes, and the need for symbolic checking of LLM output''.}
 A key step in this verification pipeline is faithful translation of the natural language to
-an appropriate logical form.
-This task is difficult due to the ambiguous nature of natural language statements, especially
+a logical form.
+This is difficult due to the ambiguous nature of natural language statements, especially
 informally expressed statements.
 Work in this area includes LINC~\cite{OG+23}, FOLIO~\cite{HS+24}, and LINA~\cite{LL+24-arXiv}.
 This paper makes another contribution, taking a new iterative approach to the translation
@@ -85,8 +85,8 @@ complement each other in the translation steps.
 \section{Architecture}
 
 Figure~\ref{ZigZagLoop} shows the overall process of ShZZaM.
-Initially LLM-N is optionally used to normalize the text, rewriting to a clear form, breaking
-down long sentences, converting metaphors to their literal meaning, etc.
+Initially LLM-N is used to normalize the text, breaking down long sentences, converting metaphors 
+to their literal meaning, etc.
 Each ``ZigZag'' uses combination of LLMs and ATP tools to translate natural language to logic
 and back to natural language.
 LLM-L+ATP is used to translate the natural language the typed first-order logic in the 
@@ -160,7 +160,7 @@ Proofs~\cite{BH+15}, and exports of the Mizar Mathematical Library~\cite{Urb03},
 ShZZaM is implemented in Python.
 The LLMs available are ChatGPT, Gemini, Claude, and DeepSeek.
 Access to ATP is provided via the TPTP World's SystemOnTPTP service~\cite{Sut00-CADE-17}.
-ShZZaM has parameters that allow the selection of LLMs (default OpenAI) and ATP systems (default
+ShZZaM has parameters that allow the selection of LLMs (default ChatGPT) and ATP systems (default
 Vampire~\cite{BB+25} for both theorem proving and model finding), setting the acceptance,
 convergence, and zigzagging sequence thresholds (defaults 0.74, 0.94, 0.94), setting the maximal
 numbers of failures in a Zig (default 10), zigzags in a sequence (default 10), and zigzagging
@@ -178,6 +178,7 @@ Show me that Socrates was mortal.
 % DISCUSS ``Is there'' and ``Show that''.
 % No tool needs to be selected -- just ``ProcessProblem''.
 
+\vspace*{-1em}
 Initial testing has been done on 12 test texts from SUMO-based research~\cite{NP01,TP+25-NeSy}.
 There are four texts that are expected to produce axioms with a provable conjecture, three texts
 that that are expected to produce axioms with an unprovable conjecture, and five contradictory
@@ -187,17 +188,16 @@ An example of the first type is:
 Sweden is a member of NATO. 
 Germany is a member of NATO.
 Russia attacked Germany.
-Will Sweden protect Germany?''.
+Show that Sweden will protect Germany.''.
 An example of the second type is:
 ``Terry possesses a Traditional Savings Account.
 Terry withdrew from the Traditional Savings Account.
 The bank penalized Terry.
-Did the withdrawal cause a penalty?''.
+Show that the withdrawal caused penalty.''.
 An example of the third type is:
 ``The tornado damaged the house.
 The tornado did not damage the house.''.
-Testing used the default settings, plus additionally used the Google LLM for the language
-translations.
+Testing used the default settings, except that Gemini was used for the language translations.
 Each test was run three times so that stochastic variations could be analysed, for a total of 
 72 runs.
 Of the 72 runs, 65 ended in convergence, 36 converged above the zigzagging sequence threshold,
@@ -205,13 +205,13 @@ Of the 72 runs, 65 ended in convergence, 36 converged above the zigzagging seque
 sequences.
 The ATP system confirmed the logical status in 21 of the 24 theorem runs, 17 of the 18 non-theorem
 runs, and 18 of the 30 unsatisfiable axiom set runs.
-The OpenAI model produced the best results, with 32 of its 36 results confirmed by the ATP system,
-while Google achieved 24 out of 36.
-In two examples Google used typed extended first-order logic~\cite{SK18}, i.e., with boolean terms.
+ChatGPT produced the best results, with 32 of its 36 results confirmed by the ATP system,
+while Gemini achieved 24 out of 36.
+In two examples Gemini used typed extended first-order logic~\cite{SK18}, i.e., with boolean terms.
 The stochastic variations are interesting:
-Of the 24 sets of three test runs, 10 OpenAI sets and 7 Google sets were confirmed by the ATP
+Of the 24 sets of three test runs, 10 ChatGPT sets and 7 Gemini sets were confirmed by the ATP
 system in all three runs.
-Manual inspection of the logic outputs showed that only 6 of the OpenAI sets and 1 of the Google
+Manual inspection of the logic outputs showed that only 6 of the ChatGPT sets and 1 of the Gemini
 sets produced essentially the same logic in each of the three runs.
 Thus repeatability is low.
 
@@ -221,8 +221,8 @@ Thus repeatability is low.
 %--------------------------------------------------------------------------------------------------
 \section{Conclusion}
 
-Future work includes adding access to more LLMs, e.g., XAI's \smalltt{grok},
-testing over larger datasets, e.g., the FOLIO~\cite{HS+24} and ProofWriter~\cite{TDC21} datasets.
+Future work includes adding access to more LLMs, e.g., Grok, testing over larger datasets, e.g., 
+the FOLIO~\cite{HS+24} and ProofWriter~\cite{TDC21} datasets.
 The main weakness of ShZZaM (and speculatively all other natural language to logic translators)
 is its stochastic nature -- the logic produced typically varies between runs.
 This is a matter for further and deeper research.
