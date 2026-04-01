@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  1 APR 2026 13:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  1 APR 2026 13:49
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -446,26 +446,21 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 LaTeX Warning: No verbatim text on input line 176.
 
 (./ShZZaM.bbl [2 <./ZigZagLoop.pdf> <./ZigLoop.pdf>]
-Underfull \hbox (badness 1087) in paragraph at lines 165--172
+Underfull \hbox (badness 1087) in paragraph at lines 155--162
 \OT1/ptm/m/n/10 Aut-o-for-mal-iza-tion: To-k-eniza-tion is All You Need.  In
  []
 
-[3])
+)
 \c@ClassMap=\count311
- [4
-
-] (./ShZZaM.aux) ) 
+ [3] (./ShZZaM.aux) ) 
 Here is how much of TeX's memory you used:
- 10031 strings out of 476025
- 159455 string characters out of 5790016
+ 10030 strings out of 476025
+ 159449 string characters out of 5790016
  1884388 words of memory out of 5000000
  30301 multiletter control sequences out of 15000+600000
  530276 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,11n,90p,270b,572s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): Page 5 has been referenced but does not exist!
-
 
 pdfTeX warning (dest): name{cite.TDC21} has been referenced but does not exist,
  replaced by a fixed one
@@ -550,10 +545,10 @@ pdfTeX warning (dest): name{cite.PR+25} has been referenced but does not exist,
 cal/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texliv
 e/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/tex
 mf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ShZZaM.pdf (4 pages, 686165 bytes).
+Output written on ShZZaM.pdf (3 pages, 682985 bytes).
 PDF statistics:
- 276 PDF objects out of 1000 (max. 8388607)
- 240 compressed objects within 3 object streams
- 32 named destinations out of 1000 (max. 500000)
- 507 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 268 PDF objects out of 1000 (max. 8388607)
+ 234 compressed objects within 3 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 495 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -4,45 +4,45 @@ The top-level auxiliary file: ShZZaM.aux
 The style file: flairs.bst
 Database file #1: Bibliography.bib
 Warning--empty note in LL+24-arXiv
-You've used 20 entries,
+You've used 19 entries,
             2568 wiz_defined-function locations,
-            732 strings with 10230 characters,
-and the built_in function-call counts, 12474 in all, are:
-= -- 1204
-> -- 788
-< -- 22
-+ -- 275
-- -- 275
-* -- 1062
-:= -- 2011
-add.period$ -- 123
-call.type$ -- 20
-change.case$ -- 198
-chr.to.int$ -- 20
-cite$ -- 21
-duplicate$ -- 445
-empty$ -- 742
-format.name$ -- 300
-if$ -- 2628
+            724 strings with 9903 characters,
+and the built_in function-call counts, 11956 in all, are:
+= -- 1155
+> -- 764
+< -- 20
++ -- 268
+- -- 268
+* -- 1020
+:= -- 1930
+add.period$ -- 117
+call.type$ -- 19
+change.case$ -- 193
+chr.to.int$ -- 19
+cite$ -- 20
+duplicate$ -- 422
+empty$ -- 703
+format.name$ -- 292
+if$ -- 2513
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 19
-newline$ -- 131
-num.names$ -- 90
-pop$ -- 175
+missing$ -- 18
+newline$ -- 125
+num.names$ -- 85
+pop$ -- 171
 preamble$ -- 1
-purify$ -- 218
+purify$ -- 212
 quote$ -- 0
-skip$ -- 388
+skip$ -- 369
 stack$ -- 0
-substring$ -- 534
-swap$ -- 187
-text.length$ -- 22
+substring$ -- 509
+swap$ -- 177
+text.length$ -- 20
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 160
+type$ -- 152
 warning$ -- 1
-while$ -- 86
-width$ -- 23
-write$ -- 304
+while$ -- 81
+width$ -- 22
+write$ -- 289
 (There was 1 warning)
